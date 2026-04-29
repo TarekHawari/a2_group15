@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block content %}
+
+<div class="container">
+
+    <!-- create event form -->
+    <h1 class="text-center">Create Event</h1>
+
+    <div class="card card-custom col-xxl-10 col-xl-12 my-2 mx-auto">
+        <div class="card-body">
+            <form action="{{ url_for('event.show', id=1) }}">
+
+                <!-- Event details -->
+                <h4>Event Details</h4>
+                <div class="mb-2">
+                    <p class="my-0">
+                        <label for="artist">Artist:</label>
+                    </p>
+                    <input class="form-control" type="text" id="artist" name="artist" placeholder="Enter artist">
+                </div>
+                <div class="mb-2">
+                    <p class="my-0">
+                        <label for="genre">Genre:</label>
+                    </p>
+                    <select class="form-control" id="genre" name="genre">
+                        <option value="electronic">Electronic</option>
+                        <option value="hiphop">Hip-Hop</option>
+                        <option value="jazz">Jazz</option>
+                        <option value="metal">Metal</option>
+                        <option value="pop">Pop</option>
+                        <option value="rock">Rock</option>
+                    </select>
+                </div>
+                <div class="mb-2">
+                    <p class="my-0">
+                        <label for="acknowledgement">Acknowledgement of Country:</label>
+                    </p>
+                    <select class="form-control" id="acknowledgement" name="acknowledgement">
+                        <option value="none">No Acknowledgement of Country</option>
+                        <option value="generic">Acknowledgement of Country: generic</option>
+                        <option value="enhanced">Acknowledgement of Country: enhanced</option>
+                    </select>
+                </div>
+                <div class="mb-2">
+                    <p class="my-0">
+                        <label for="short-description">Short description:</label>
+                    </p>
+                    <textarea class="form-control" id="short-description" name="short-description"
+                        placeholder="Enter short description" rows="2" style="width:100%;"></textarea>
+                </div>
+                <div class="mb-2">
+                    <p class="my-0">
+                        <label for="long-description">Long description:</label>
+                    </p>
+                    <textarea class="form-control" id="long-description" name="long-description"
+                        placeholder="Enter long description" rows="12" style="width:100%;"></textarea>
+                </div>
+                <div class="mb-2">
+                    <p class="my-0">
+                        <label for="end">Event image:</label>
+                    </p>
+                    <input class="form-control" type="file" id="myfile" name="myfile">
+                </div>
+
+                <!-- venue details -->
+                <h4>Venue Details</h4>
+                <div class="mb-2">
+                    <p class="my-0">
+                        <label for="venue">Venue:</label>
+                    </p>
+                    <input class="form-control" type="text" id="venue" name="venue" placeholder="Enter venue">
+                </div>
+                <div class="mb-2">
+                    <p class="my-0">
+                        <label for="city">City:</label>
+                    </p>
+                    <input class="form-control" type="text" id="city" name="city" placeholder="Enter city">
+                </div>
+                <div class="mb-2">
+                    <p class="my-0">
+                        <label for="state">State:</label>
+                    </p>
+                    <input class="form-control" type="text" id="state" name="state" placeholder="Enter state">
+                </div>
+                <div class="mb-2">
+                    <p class="my-0">
+                        <label for="start">Start time:</label>
+                    </p>
+                    <input class="form-control" type="datetime-local" id="start" name="start">
+                </div>
+                <div class="mb-2">
+                    <p class="my-0">
+                        <label for="end">End time:</label>
+                    </p>
+                    <input class="form-control" type="datetime-local" id="end" name="end">
+                </div>
+
+                <!-- ticket details -->
+                <h4>Ticket Details</h4>
+                <div class="mb-2">
+                    <p class="my-0">
+                        <label for="aa-price">All ages price:</label>
+                    </p>
+                    <input class="form-control" type="number" step="0.05" id="aa-price" name="aa-price"
+                        placeholder="Enter price">
+                </div>
+                <div class="mb-2">
+                    <p class="my-0">
+                        <label for="ga-price">General admission price:</label>
+                    </p>
+                    <input class="form-control" type="number" step="0.05" id="ga-price" name="ga-price"
+                        placeholder="Enter price">
+                </div>
+
+                <!-- submit button -->
+                <div class="mt-4">
+                    <input class="btn btn-custom" type="submit" value="Create Event">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
