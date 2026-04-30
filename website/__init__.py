@@ -17,7 +17,11 @@ def create_app():
     # set the app configuration data
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///sitedata.sqlite"
     # initialise db with flask app
-    #  db.init_app(app)
+    db.init_app(app)
+
+    # config upload folder
+    UPLOAD_FOLDER = "/static/img"
+    app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
     Bootstrap5(app)
 

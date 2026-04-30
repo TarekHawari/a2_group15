@@ -8,35 +8,34 @@
 
     <!-- header card -->
     <div class="card card-custom col-12 mt-2">
-        <img src="{{ url_for('static', filename='img/AquaTriangle.jpg') }}" class="card-img-top" alt="Aqua Triangle">
+        <img src="{{ event.image }}" class="card-img-top" alt="Aqua Triangle">
         <div class="card-body">
             <div class="d-flex justify-content-between">
                 <div class="row">
-                    <h5 class="card-title">Aqua Triangle</h5>
+                    <h5 class="card-title">{{ event.artist }}</h5>
                 </div>
                 <div class="row medium-icon">
-                    <a href="{{ url_for('main.index', genre='metal') }}">
-                        <img src="{{ url_for('static', filename='icons/BWMetal.svg') }}" alt="Metal">
+                    <a href="{{ url_for('main.index', genre=event.genre) }}">
+                        <img src="{{ url_for('static', filename=icons[event.genre]) }}" alt="{{ event.genre }}">
                     </a>
                 </div>
             </div>
-            <p class="card-text">Metal for the masses, Aqua Triangle are back again to bring their
-                energetic mayhem to the shores of Australia.</p>
+            <p class="card-text">{{ event.short_description }}</p>
         </div>
         <div class="card-footer">
             <div class="d-flex flex-row">
                 <div class="col-6">
                     <p class="my-0">
-                        🕜 7:00pm-10:30pm
+                        🕜 {{ event.start_time }}-{{ event.end_time }}
                     </p>
                     <p class="my-0">
-                        🗓️ Wednesday 18/11/2026
+                        🗓️ {{ event.date }}
                     </p>
                     <p class="my-0">
-                        📍 The Brightside
+                        📍 {{ event.venue_name }}
                     </p>
                     <p class="my-0">
-                        🌆 Brisbane, QLD
+                        🌆 {{ event.venue_city }}, {{event.venue_state}}
                     </p>
                 </div>
                 <div class="col-6">
@@ -44,7 +43,7 @@
                     <!-- purchase ticket form -->
                     <form action="{{ url_for('booking.show') }}">
                         <p class="text-end my-0">
-                            <label for="aa">All Ages: $79.90</label>
+                            <label for="aa">All Ages: ${{ event.all_ages_price }}</label>
                             <select id="aa" name="aa">
                                 <option value="0">0</option>
                                 <option value="1">1</option>
@@ -58,7 +57,7 @@
                             </select>
                         </p>
                         <p class="text-end my-0">
-                            <label for="ga">General Admission: $89.90</label>
+                            <label for="ga">General Admission: ${{ event.general_admission_price }}</label>
                             <select id="ga" name="ga" class="mt-2">
                                 <option value="0">0</option>
                                 <option value="1">1</option>
@@ -92,85 +91,7 @@
     <!-- event details -->
     <div class="card card-custom col-12">
         <div class="card-body">
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut orci diam, varius ut tellus in,
-                dapibus
-                vulputate leo. Morbi
-                ut posuere diam, ut iaculis lectus. Praesent neque lectus, cursus non volutpat ac, eleifend
-                hendrerit ante. Suspendisse
-                potenti. In pulvinar massa vitae vestibulum finibus. Nam maximus consequat felis, ut blandit
-                urna
-                viverra eget. Aenean
-                non neque eget leo vestibulum luctus. Curabitur cursus, lacus eu pretium venenatis, mi leo
-                cursus
-                erat, id tincidunt
-                lacus odio at ex. Pellentesque a felis diam. Integer ex purus, facilisis tempor diam at,
-                pharetra
-                vulputate nulla.
-                Vivamus euismod nibh a bibendum tincidunt. Class aptent taciti sociosqu ad litora torquent per
-                conubia nostra, per
-                inceptos himenaeos.
-            </p>
-
-            <p>
-                Cras suscipit orci id purus luctus, sed ullamcorper nunc eleifend. Maecenas dignissim eu velit
-                id
-                suscipit. Nulla
-                malesuada dignissim est, vitae viverra turpis rhoncus nec. Sed facilisis sagittis nisi eget
-                pellentesque. Donec at
-                feugiat risus. Nulla lorem est, molestie id bibendum ac, semper eget nisi. Sed mattis tincidunt
-                ipsum, eget volutpat est
-                iaculis at. Morbi dapibus ligula ut eleifend auctor. Quisque congue elit vel augue mattis, id
-                iaculis nisi porttitor.
-            </p>
-
-            <p>
-                Aliquam hendrerit, magna ornare cursus finibus, turpis tellus ultrices urna, id accumsan purus
-                ligula in mi. Duis purus
-                odio, mattis id leo ac, semper tristique nibh. Aliquam elementum elit at sem dapibus aliquet.
-                Fusce
-                tristique rhoncus
-                sollicitudin. Nullam ac nisi id sapien aliquet varius. Quisque vitae tortor consectetur, mattis
-                risus ut, convallis
-                augue. Aliquam ac massa metus. Pellentesque sed porttitor felis. Sed non nisi lectus. Mauris
-                ullamcorper pellentesque
-                nisi, ut sagittis massa ornare a. Cras tincidunt malesuada molestie. Donec vel ipsum aliquet,
-                porta
-                ipsum vitae,
-                convallis lectus. Vestibulum iaculis sodales lectus id viverra. Pellentesque at orci congue,
-                scelerisque justo sed,
-                aliquam lorem.
-            </p>
-
-            <p>
-                Suspendisse porta eleifend interdum. Duis pretium ultrices mauris ut vulputate. Donec vitae
-                libero
-                in lacus convallis
-                molestie sed nec tellus. Aliquam at condimentum diam, eget mollis diam. Curabitur vel neque sit
-                amet
-                enim efficitur
-                auctor. Ut congue consequat urna, eget aliquet justo dictum vitae. Fusce tristique purus vel
-                elit
-                volutpat ultrices.
-                Quisque vitae augue massa. Fusce ornare est mi, sit amet ornare nisi elementum in. Mauris vel
-                elementum diam.
-            </p>
-
-            <p>
-                Vestibulum dui arcu, bibendum ac velit consectetur, efficitur lobortis lectus. In hac habitasse
-                platea dictumst.
-                Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris condimentum eleifend ex, a
-                fermentum felis
-                elementum nec. Morbi varius metus volutpat tortor sagittis maximus. Nam convallis lacus eget
-                turpis placerat viverra.
-                Integer nec malesuada arcu, vitae porttitor erat. Nunc rhoncus, neque vitae aliquam porta,
-                turpis sapien molestie neque,
-                sit amet commodo nulla enim quis eros. Donec semper sem sed congue elementum. Aenean nec enim
-                odio. Sed vel laoreet
-                urna. Morbi posuere dolor id nulla sodales, ut viverra erat dapibus. Cras et ex in nisi vehicula
-                scelerisque. Maecenas
-                condimentum metus felis.
-            </p>
+            <p>{{ event.long_description }}</p>
         </div>
     </div>
 

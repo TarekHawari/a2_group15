@@ -5,5 +5,5 @@ __MACOSX/
 __pycache__/
 
 # Flask
-instance/
+# instance/
 .webassets-cache
