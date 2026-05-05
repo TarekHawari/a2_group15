@@ -3,7 +3,11 @@ from datetime import datetime
 from flask_login import UserMixin
 
 # class User(db.Model, UserMixin):
-
+class User(db.Model):
+    __tablename__ = 'User'
+    id = db.Column(db.Integer, primary_key=True)
+    name
+    emailid
 
 class Event(db.Model):
     __tablename__ = "events"
