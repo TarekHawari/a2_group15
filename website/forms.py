@@ -24,8 +24,12 @@ class LoginForm(FlaskForm):
 
 # this is the registration form
 class RegisterForm(FlaskForm):
+    first_name = StringField("First name", validators=[InputRequired()])
+    surname = StringField("Surname", validators=[InputRequired()])
     user_name = StringField("User Name", validators=[InputRequired()])
+    contact_number = StringField("Contact Number", validators=[InputRequired()])
     email = StringField("Email Address", validators=[Email("Please enter a valid email")])
+    street_address = StringField("Street Address", validators=[InputRequired()])
     # linking two fields - password should be equal to data entered in confirm
     password = PasswordField("Password", validators=[InputRequired(), EqualTo("confirm", message="Passwords should match")])
     confirm = PasswordField("Confirm Password")
