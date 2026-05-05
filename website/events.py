@@ -51,6 +51,8 @@ def create():
             date=form.date.data,
             all_ages_price=form.all_ages_price.data,
             general_admission_price=form.general_admission_price.data,
+            all_ages_available=form.all_ages_available.data,
+            general_admission_available=form.general_admission_available.data,
         )
         db.session.add(event)
         db.session.commit()

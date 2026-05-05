@@ -10,6 +10,7 @@ from wtforms.fields import (
     FloatField,
     TimeField,
     DateField,
+    IntegerField,
 )
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange
 from flask_wtf.file import FileRequired, FileField, FileAllowed
@@ -179,6 +180,20 @@ class EventForm(FlaskForm):
         validators=[
             InputRequired(),
             NumberRange(),
+        ],
+    )
+    all_ages_available = IntegerField(
+        "All Ages Tickets Available",
+        validators=[
+            InputRequired(),
+            NumberRange(max=200000),
+        ],
+    )
+    general_admission_available = IntegerField(
+        "General Admission Tickets Available",
+        validators=[
+            InputRequired(),
+            NumberRange(min=1, max=200000),
         ],
     )
     submit = SubmitField("Create")
