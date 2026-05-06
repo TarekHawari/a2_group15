@@ -52,7 +52,7 @@ class Comment(db.Model):
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
 
     def __repr__(self):
-        return f"Comment: {self.text}
+        return f"Comment: {self.text}"
 
 
 
