@@ -3,11 +3,16 @@ from datetime import datetime
 from flask_login import UserMixin
 
 # class User(db.Model, UserMixin):
-class User(db.Model):
+class User(db.Model,UserMixin):
     __tablename__ = 'User'
     id = db.Column(db.Integer, primary_key=True)
-    name
-    emailid
+    name = db.Column(db.String(100), index=True, unique=True, nullable=False)
+    emailid = db.Column(db.String(100), index=True, nullable=False)
+    password_hash = db.Column(db.String(200), nullable=False)
+    #password should not be stored in the database, encrypted password is stored 
+    comments = db.Column('Comment', backref='user')
+    def __repr__(self):
+        return f"Name: {self.name}"
 
 class Event(db.Model):
     __tablename__ = "events"
@@ -38,6 +43,17 @@ class Event(db.Model):
 
 
 # class Comment(db.Model):
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(400))
+    created_at = db.Column(db.DateTime, default=datetime.now())
+    user_id = db.Column(db.Inteher, db.ForeignKey('user.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
+
+    def __repr__(self):
+        return f"Comment: {self.text}
+
 
 
 # class Order(db.Model):
