@@ -3,15 +3,16 @@ from datetime import datetime
 from flask_login import UserMixin
 
 # class User(db.Model, UserMixin):
-class User(db.Model):
-    __tablename__ = 'User'
+class User(db.Model, UserMixin):
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
     email = db.Column(db.String(64))
     password = db.Column(db.String(64))
-    
+
 
 class Event(db.Model):
+    __tablename__ = "events"
     id = db.Column(db.Integer, primary_key=True)
     artist = db.Column(db.String(64))
     genre = db.Column(db.String(10))
