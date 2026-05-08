@@ -6,8 +6,10 @@ from flask_login import UserMixin
 class User(db.Model):
     __tablename__ = 'User'
     id = db.Column(db.Integer, primary_key=True)
-    name
-    emailid
+    name = db.Column(db.String(64))
+    email = db.Column(db.String(64))
+    password = db.Column(db.String(64))
+    
 
 class Event(db.Model):
     __tablename__ = "events"
