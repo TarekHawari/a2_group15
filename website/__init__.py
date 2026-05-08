@@ -53,8 +53,8 @@ def create_app():
 
     app.register_blueprint(bookings.bookingbp)
 
-    #  from . import auth
+    from . import auth
 
-    #  app.register_blueprint(auth.auth_bp)
+    app.register_blueprint(auth.auth_bp)
 
     return app

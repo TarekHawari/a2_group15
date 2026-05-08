@@ -12,7 +12,6 @@ class User(db.Model):
     
 
 class Event(db.Model):
-    __tablename__ = "events"
     id = db.Column(db.Integer, primary_key=True)
     artist = db.Column(db.String(64))
     genre = db.Column(db.String(10))
