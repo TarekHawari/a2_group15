@@ -15,7 +15,6 @@ def register_user():
     if form.validate_on_submit():
         user_name = form.username.data.lower()
         email = form.email.data.lower()
-        # db_file_path = check_upload_file(form
         user = User (
             name = user_name,
             email = email,
@@ -30,6 +29,7 @@ def register_user():
             db.session.add(user)
             db.session.commit()
             return redirect(url_for('user.login_user'))  
+        
     if error is not None: flash(error)
     return render_template("users/register.html", heading='Register', form=form)
 
@@ -37,16 +37,19 @@ def register_user():
 def login_user():
     form = LoginForm()
     error = None
+
     if form.validate_on_submit():
         user_name = form.username.data.lower()
         password = form.password.data.lower()
         user = db.session.scalar(db.select(User).where(User.name==user_name))
+
         if user is None:
             error = 'Incorrect user name'
-        elif not check_password_hash(user.password, password): # takes the hash and cleartext password
+        elif not check_password_hash(user.password, password):
             error = 'Incorrect password'
+
         if error is None:
-            nextp = request.args.get('next') # this gives the url from where the login page was accessed
+            nextp = request.args.get('next')
             print(nextp)
             if nextp is None or not nextp.startswith('/'):
                 return redirect(url_for('main.index'))
