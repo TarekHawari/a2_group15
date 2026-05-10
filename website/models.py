@@ -1,6 +1,7 @@
-from . import db
+from . import db, login_manager
 from datetime import datetime
 from flask_login import UserMixin
+
 
 # class User(db.Model, UserMixin):
 class User(db.Model, UserMixin):
@@ -9,6 +10,11 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(64))
     email = db.Column(db.String(64))
     password = db.Column(db.String(128))
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return db.session.scalar(db.select(User).where(User.id == user_id))
 
 
 class Event(db.Model):

@@ -7,8 +7,9 @@ from . import db
 
 userbp = Blueprint("user", __name__)
 
+
 @userbp.route("/register", methods=["GET", "POST"])
-def register_user():
+def register():
     error = None
     form = RegisterForm()
 
@@ -28,16 +29,17 @@ def register_user():
         if error is None:
             db.session.add(user)
             db.session.commit()
-            return redirect(url_for('user.login_user'))  
+            return redirect(url_for('user.login'))  
         
     if error is not None: flash(error)
     return render_template("users/register.html", heading='Register', form=form)
 
+
 @userbp.route("/login", methods=["GET", "POST"])
-def login_user():
+def login():
     form = LoginForm()
     error = None
-
+    
     if form.validate_on_submit():
         user_name = form.username.data.lower()
         password = form.password.data.lower()
@@ -49,13 +51,18 @@ def login_user():
             error = 'Incorrect password'
 
         if error is None:
+            login_user(user)
             nextp = request.args.get('next')
-            print(nextp)
             if nextp is None or not nextp.startswith('/'):
-                return redirect(url_for('main.index'))
+                # return redirect(url_for('main.index'))
+                return redirect(url_for("event.show", id=user.id))
             return redirect(nextp)
         else:
             flash(error)
-        return redirect(url_for("event.show", id=user.id))
     return render_template('users/login.html', form=form, heading='Login')
 
+
+@userbp.route("/logout", methods=["GET", "POST"])
+def logout():
+    logout_user()
+    return redirect(url_for('user.login'))  
