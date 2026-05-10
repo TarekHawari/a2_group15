@@ -10,7 +10,7 @@ class User(db.Model,UserMixin):
     emailid = db.Column(db.String(100), index=True, nullable=False)
     password_hash = db.Column(db.String(200), nullable=False)
     #password should not be stored in the database, encrypted password is stored 
-    comments = db.Column('Comment', backref='user')
+#    comments = db.Column('Comment', backref='user')
     def __repr__(self):
         return f"Name: {self.name}"
 
