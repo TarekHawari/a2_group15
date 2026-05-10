@@ -47,9 +47,9 @@ class Comment(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(400))
-    date_create  = db.Column(db.DateTime, default=datetime.now())
+    date_create  = db.Column(db.DateTime, default=datetime.now)
     
-    user_id = db.Column(db.Inteher, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
 
     def __repr__(self):
