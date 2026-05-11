@@ -2,8 +2,7 @@ from . import db
 from datetime import datetime
 from flask_login import UserMixin
 
-# class User(db.Model, UserMixin):
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'User'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
@@ -49,4 +48,5 @@ class Order(db.Model):
     total_price = db.Column(db.Float)
     date_time = db.Column(db.DateTime, default=datetime.now)
 
-    
+    # relationship
+    event = db.relationship('Event', backref='orders')

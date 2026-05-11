@@ -1,160 +1,158 @@
-{% extends 'base.html' %}
-
-{% from 'bootstrap5/form.html' import render_form %}
-
+{% extends 'base.html' %} {% from 'bootstrap5/form.html' import render_form %}
 {% block content %}
 
 <div class="container">
-
-    <!-- header card -->
-    <div class="card card-custom col-12 mt-2">
-        <img src="{{ event.image }}" class="card-img-top" alt="Aqua Triangle">
-        <div class="card-body">
-            <div class="d-flex justify-content-between">
-                <div class="row">
-                    <h5 class="card-title">{{ event.artist }}</h5>
-                </div>
-                <div class="row medium-icon">
-                    <a href="{{ url_for('main.index', genre=event.genre) }}">
-                        <img src="{{ url_for('static', filename=icons[event.genre]) }}" alt="{{ event.genre }}">
-                    </a>
-                </div>
-            </div>
-            <p class="card-text">{{ event.short_description }}</p>
+  <!-- header card -->
+  <div class="card card-custom col-12 mt-2">
+    <img src="{{ event.image }}" class="card-img-top" alt="Aqua Triangle" />
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <div class="row">
+          <h5 class="card-title">{{ event.artist }}</h5>
         </div>
-        <div class="card-footer">
-            <div class="d-flex flex-row">
-                <div class="col-6">
-                    <p class="my-0">
-                        🕜 {{ event.start_time }}-{{ event.end_time }}
-                    </p>
-                    <p class="my-0">
-                        🗓️ {{ event.date }}
-                    </p>
-                    <p class="my-0">
-                        📍 {{ event.venue_name }}
-                    </p>
-                    <p class="my-0">
-                        🌆 {{ event.venue_city }}, {{event.venue_state}}
-                    </p>
-                </div>
-                <div class="col-6">
-
-                    <!-- purchase ticket form -->
-                    <form action="{{ url_for('booking.show') }}">
-                        <p class="text-end my-0">
-                            <label for="aa">All Ages: ${{ event.all_ages_price }}</label>
-                            <select id="aa" name="aa">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                            </select>
-                        </p>
-                        <p class="text-end my-0">
-                            <label for="ga">General Admission: ${{ event.general_admission_price }}</label>
-                            <select id="ga" name="ga" class="mt-2">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                            </select>
-                        </p>
-                        <p class="text-end my-2">
-                            <input type="submit" value="Buy Tickets" class="btn btn-custom">
-                        </p>
-                    </form>
-
-                </div>
-            </div>
+        <div class="row medium-icon">
+          <a href="{{ url_for('main.index', genre=event.genre) }}">
+            <img
+              src="{{ url_for('static', filename=icons[event.genre]) }}"
+              alt="{{ event.genre }}"
+            />
+          </a>
         </div>
+      </div>
+      <p class="card-text">{{ event.short_description }}</p>
     </div>
-
-    <!-- google maps iframe -->
-    <div>
-        <iframe class="card card-custom"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3540.39188146807!2d153.0325199123986!3d-27.457056676228046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b9159f2576bbb8f%3A0x5c71ef060522d4e2!2sThe%20Brightside%20Brisbane!5e0!3m2!1sen!2sau!4v1776158827443!5m2!1sen!2sau"
-            width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-
-    <!-- event details -->
-    <div class="card card-custom col-12">
-        <div class="card-body">
-            <p>{{ event.long_description }}</p>
+    <div class="card-footer">
+      <div class="d-flex flex-row">
+        <div class="col-6">
+          <p class="my-0">🕜 {{ event.start_time }}-{{ event.end_time }}</p>
+          <p class="my-0">🗓️ {{ event.date }}</p>
+          <p class="my-0">📍 {{ event.venue_name }}</p>
+          <p class="my-0">🌆 {{ event.venue_city }}, {{event.venue_state}}</p>
         </div>
-    </div>
-
-    <!-- comments -->
-    <div class="card card-custom col-12 my-2">
-        <div class="card-body">
-            <h1 class="text-center">Comments</h1>
-
-            <div>
-                <hr>
-                <p class="my-0">
-                    🗓️ 9/4/2026
-                </p>
-                <p class="my-0">
-                    🙍‍♂️ John Smith
-                </p>
-                <p class="my-0">
-                    My favourite band! Can't come soon enough!
-                </p>
-            </div>
-
-            <div>
-                <hr>
-                <p class="my-0">
-                    🗓️ 9/4/2026
-                </p>
-                <p class="my-0">
-                    🙍‍♀️ Jane Doe
-                </p>
-                <p class="my-0">
-                    This is sure to be a show that will not be forgotten, from their pyrotechnics to the
-                    greatest of sound engineering they always put on a good show.
-                </p>
-            </div>
-
-            <div>
-                <hr>
-                <p class="my-0">
-                    🗓️ 10/4/2026
-                </p>
-                <p class="my-0">
-                    🙍‍♂️ Bob Rogers
-                </p>
-                <p class="my-0">
-                    Yes, finally! I missed them last time they toured and have been waiting for them to come
-                    back ever since!
-                </p>
-            </div>
-
-            <div>
-                <hr>
-
-                <!-- comment form -->
-                <form action="{{ url_for('event.show', id=2) }}">
-                    <h4>Write a comment:</h4>
-                    <textarea class="form-control mb-2" name="comment" rows="6" style="width:100%;"
-                        placeholder="Enter text here"></textarea>
-                    <input class="form-control" type="submit" class="mt-2 btn btn-custom" value="Post Comment">
-                </form>
-
-            </div>
+        <div class="col-6">
+          <!-- purchase ticket form -->
+          <!-- purchase ticket form -->
+          <form
+            action="{{ url_for('booking.create', id=event.id) }}"
+            method="POST"
+          >
+            {{ form.hidden_tag() }}
+            <p class="text-end my-0">
+              <label for="aa">All Ages: ${{ event.all_ages_price }}</label>
+              <select id="aa" name="aa">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+              </select>
+            </p>
+            <p class="text-end my-0">
+              <label for="ga"
+                >General Admission: ${{ event.general_admission_price }}</label
+              >
+              <select id="ga" name="ga" class="mt-2">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+              </select>
+            </p>
+            <p class="text-end my-2">
+              <input type="submit" value="Buy Tickets" class="btn btn-custom" />
+            </p>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
+
+  <!-- google maps iframe -->
+  <div>
+    <iframe
+      class="card card-custom"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3540.39188146807!2d153.0325199123986!3d-27.457056676228046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b9159f2576bbb8f%3A0x5c71ef060522d4e2!2sThe%20Brightside%20Brisbane!5e0!3m2!1sen!2sau!4v1776158827443!5m2!1sen!2sau"
+      width="100%"
+      height="350"
+      style="border: 0"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+  </div>
+
+  <!-- event details -->
+  <div class="card card-custom col-12">
+    <div class="card-body">
+      <p>{{ event.long_description }}</p>
+    </div>
+  </div>
+
+  <!-- comments -->
+  <div class="card card-custom col-12 my-2">
+    <div class="card-body">
+      <h1 class="text-center">Comments</h1>
+
+      <div>
+        <hr />
+        <p class="my-0">🗓️ 9/4/2026</p>
+        <p class="my-0">🙍‍♂️ John Smith</p>
+        <p class="my-0">My favourite band! Can't come soon enough!</p>
+      </div>
+
+      <div>
+        <hr />
+        <p class="my-0">🗓️ 9/4/2026</p>
+        <p class="my-0">🙍‍♀️ Jane Doe</p>
+        <p class="my-0">
+          This is sure to be a show that will not be forgotten, from their
+          pyrotechnics to the greatest of sound engineering they always put on a
+          good show.
+        </p>
+      </div>
+
+      <div>
+        <hr />
+        <p class="my-0">🗓️ 10/4/2026</p>
+        <p class="my-0">🙍‍♂️ Bob Rogers</p>
+        <p class="my-0">
+          Yes, finally! I missed them last time they toured and have been
+          waiting for them to come back ever since!
+        </p>
+      </div>
+
+      <div>
+        <hr />
+
+        <!-- comment form -->
+        <form action="{{ url_for('event.show', id=2) }}">
+          <h4>Write a comment:</h4>
+          <textarea
+            class="form-control mb-2"
+            name="comment"
+            rows="6"
+            style="width: 100%"
+            placeholder="Enter text here"
+          ></textarea>
+          <input
+            class="form-control"
+            type="submit"
+            class="mt-2 btn btn-custom"
+            value="Post Comment"
+          />
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

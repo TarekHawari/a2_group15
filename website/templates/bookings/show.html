@@ -6,9 +6,10 @@
   {% for order in orders%}
   <div class="card card-custom col-12 my-2">
     <div class="card-body">
-      <h5 class="card-title">{{order.event_id}}</h5>
+      <h5 class="card-title">{{order.event.artist}}</h5>
     </div>
     <div class="card-footer">
+      <p>User ID: {{order.user_id}}</p>
       <p>Quantity: {{order.quantity}}</p>
       <p>Price: {{order.price}}</p>
       <p>Total: {{order.total_price}}</p>
