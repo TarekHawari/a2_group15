@@ -47,7 +47,6 @@ class Event(db.Model):
         return f"Artist: {self.artist}, Venue: {self.venue_name}"
 
 
-# class Comment(db.Model):
 class Comment(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
@@ -59,7 +58,6 @@ class Comment(db.Model):
 
     def __repr__(self):
         return f"Comment: {self.text}"
-
 
 
 class Order(db.Model):
