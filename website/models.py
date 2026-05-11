@@ -20,7 +20,7 @@ def load_user(user_id):
 
 
 class Event(db.Model):
-    __tablename__ = "events"
+    __tablename__ = "event"
     id = db.Column(db.Integer, primary_key=True)
     artist = db.Column(db.String(64))
     genre = db.Column(db.String(10))
@@ -65,7 +65,7 @@ class Comment(db.Model):
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable = False)
-    user_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
     quantity = db.Column(db.Integer)
     price = db.Column(db.Float)
     total_price = db.Column(db.Float)
