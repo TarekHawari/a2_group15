@@ -1,153 +1,22 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <div class="container">
-    <h1 class="text-center">Bookings</h1>
+  <h1 class="text-center">Bookings</h1>
 
-    <!-- booking 1 -->
-    <div class="card card-custom col-12 my-2">
-        <div class="bookings-image-container">
-            <a href="{{ url_for('event.show', id=2) }}">
-                <img src="{{ url_for('static', filename='img/AquaTriangle.jpg') }}" alt="Aqua Triangle">
-            </a>
-        </div>
-        <div class="card-body">
-
-            <h5 class="card-title"><a href="{{ url_for('event.show', id=2) }}">Aqua Triangle</a></h5>
-
-            <p class="card-text">Metal for the masses, Aqua Triangle are back again to bring their
-                energetic mayhem to the shores of Australia.</p>
-        </div>
-        <div class="card-footer">
-            <div class="d-flex flex-row">
-                <div class="col-6">
-                    <p class="my-0">
-                        🕜 7:00pm-10:30pm
-                    </p>
-                    <p class="my-0">
-                        🗓️ Wednesday 18/11/2026
-                    </p>
-                    <p class="my-0">
-                        📍 The Brightside
-                    </p>
-                    <p class="my-0">
-                        🌆 Brisbane, QLD
-                    </p>
-                </div>
-                <div class="col-6">
-                    <p class="text-end my-0">
-                        Booked: 2:07pm 9/4/2026
-                    </p>
-                    <p class="text-end my-0">
-                        Booking ID: 5tljCA1o7P0a
-                    </p>
-                    <p class="text-end my-0">
-                        4x General Admission: $89.90
-                    </p>
-                    <p class="text-end my-0">
-                        Total: $359.60
-                    </p>
-                </div>
-            </div>
-        </div>
+  {% for order in orders%}
+  <div class="card card-custom col-12 my-2">
+    <div class="card-body">
+      <h5 class="card-title">{{order.event_id}}</h5>
     </div>
-
-    <!-- booking 2 -->
-    <div class="card card-custom col-12 my-2">
-        <div class="bookings-image-container">
-            <a href="{{ url_for('event.show', id=2) }}">
-                <img src="{{ url_for('static', filename='img/EcstaticChild.jpg') }}" alt="Ecstatic Child">
-            </a>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title"><a href="{{ url_for('event.show', id=2) }}">Ecstatic Child</a></h5>
-            <p class="card-text">Pop sensation Ecstatic Child is back in Australia bringing her famous
-                style, class and ambiance for all to enjoy. Her first tour in 3 years is sure to be a
-                night of fun and excitement.</p>
-        </div>
-        <div class="card-footer">
-            <div class="d-flex flex-row">
-                <div class="col-6">
-                    <p class="my-0">
-                        🕜 7:30pm-9:30pm
-                    </p>
-                    <p class="my-0">
-                        🗓️ Wednesday 21/10/2026
-                    </p>
-                    <p class="my-0">
-                        📍 Black Bear Lodge
-                    </p>
-                    <p class="my-0">
-                        🌆 Brisbane, QLD
-                    </p>
-                </div>
-                <div class="col-6">
-                    <p class="text-end my-0">
-                        Booked: 11:26am 5/4/2026
-                    </p>
-                    <p class="text-end my-0">
-                        Booking ID: GCwv2cq491oU
-                    </p>
-                    <p class="text-end my-0">
-                        1x General Admission: $67.50
-                    </p>
-                    <p class="text-end my-0">
-                        Total: $67.50
-                    </p>
-                </div>
-            </div>
-        </div>
+    <div class="card-footer">
+      <p>Quantity: {{order.quantity}}</p>
+      <p>Price: {{order.price}}</p>
+      <p>Total: {{order.total_price}}</p>
+      <p>Booked: {{order.date_time}}</p>
+      <p>Booking ID: {{order.id}}</p>
     </div>
-
-    <!-- booking 3 -->
-    <div class="card card-custom col-12 my-2">
-        <div class="bookings-image-container">
-            <a href="{{ url_for('event.show', id=2) }}">
-                <img src="{{ url_for('static', filename='img/WideCross.jpg') }}" alt="Wide Cross">
-            </a>
-        </div>
-        <div class="card-body">
-            <a href="{{ url_for('event.show', id=2) }}">
-                <h5 class="card-title"><a href="{{ url_for('event.show', id=2) }}">Wide Cross</a></h5>
-            </a>
-            <p class="card-text">Smooth and cool are the sounds of Wide Cross. Join them in their second
-                tour of Australia bringing good vibes to all.</p>
-        </div>
-        <div class="card-footer">
-            <div class="d-flex flex-row">
-                <div class="col-6">
-                    <p class="my-0">
-                        🕜 7:00pm-10:00pm
-                    </p>
-                    <p class="my-0">
-                        🗓️ Saturday 5/12/2026
-                    </p>
-                    <p class="my-0">
-                        📍 Suncorp Stadium
-                    </p>
-                    <p class="my-0">
-                        🌆 Brisbane, QLD
-                    </p>
-                </div>
-                <div class="col-6">
-                    <p class="text-end my-0">
-                        Booked: 12:42pm 21/3/2026
-                    </p>
-                    <p class="text-end my-0">
-                        Booking ID: l3eAPguQvk9H
-                    </p>
-                    <p class="text-end my-0">
-                        2x General Admission: $99.90
-                    </p>
-                    <p class="text-end my-0">
-                        Total: $199.80
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
+  </div>
+  {% endfor %}
 </div>
 
 {% endblock %}

@@ -196,3 +196,9 @@ class EventForm(FlaskForm):
         ],
     )
     submit = SubmitField("Create")
+
+
+class BookingForm(FlaskForm):
+    quantity = IntegerField("Quantity", validators=[InputRequired(), NumberRange(min=1)])
+    submit = SubmitField('Book Now')
+    

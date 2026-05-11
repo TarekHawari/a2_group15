@@ -63,4 +63,13 @@ class Comment(db.Model):
 
 
 
-# class Order(db.Model):
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable = False)
+    quantity = db.Column(db.Integer)
+    price = db.Column(db.Float)
+    total_price = db.Column(db.Float)
+    date_time = db.Column(db.DateTime, default=datetime.now)
+
+    
