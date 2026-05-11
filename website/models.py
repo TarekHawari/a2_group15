@@ -69,4 +69,5 @@ class Order(db.Model):
     total_price = db.Column(db.Float)
     date_time = db.Column(db.DateTime, default=datetime.now)
 
-    
+    # relationship
+    event = db.relationship('Event', backref='orders')

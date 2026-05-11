@@ -8,6 +8,7 @@ from .icons import icons
 from . import db
 import os
 from werkzeug.utils import secure_filename
+from .forms import EventForm, BookingForm
 
 eventbp = Blueprint("event", __name__, url_prefix="/events")
 
@@ -15,7 +16,8 @@ eventbp = Blueprint("event", __name__, url_prefix="/events")
 @eventbp.route("/<id>")
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id == id))
-    return render_template("events/show.html", event=event, icons=icons)
+    form = BookingForm()
+    return render_template("events/show.html", event=event, icons=icons, form=form)
     # cform = CommentForm()
     # return render_template("events/show.html", event=event, form=cform, icons=icons)
 
