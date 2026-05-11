@@ -103,55 +103,45 @@
             <div>
                 <hr>
                 <p class="my-0">
-                    🗓️ 9/4/2026
+                    {{comment.date_post}}
                 </p>
                 <p class="my-0">
-                    🙍‍♂️ John Smith
+                    {{comment.user.name}}
                 </p>
                 <p class="my-0">
-                    My favourite band! Can't come soon enough!
+                    {{comment.text}}
                 </p>
             </div>
 
             <div>
                 <hr>
                 <p class="my-0">
-                    🗓️ 9/4/2026
+                    {{comment date_post}}
                 </p>
                 <p class="my-0">
-                    🙍‍♀️ Jane Doe
+                    {{comment user}}
                 </p>
                 <p class="my-0">
-                    This is sure to be a show that will not be forgotten, from their pyrotechnics to the
-                    greatest of sound engineering they always put on a good show.
+                    {{comment.text}}
                 </p>
             </div>
+            {%else%}
+            <p class = "text-center"> No comment yet</p>
+            {%endfor%}
 
             <div>
                 <hr>
-                <p class="my-0">
-                    🗓️ 10/4/2026
-                </p>
-                <p class="my-0">
-                    🙍‍♂️ Bob Rogers
-                </p>
-                <p class="my-0">
-                    Yes, finally! I missed them last time they toured and have been waiting for them to come
-                    back ever since!
-                </p>
-            </div>
-
-            <div>
-                <hr>
-
                 <!-- comment form -->
-                <form action="{{ url_for('event.show', id=2) }}">
-                    <h4>Write a comment:</h4>
-                    <textarea class="form-control mb-2" name="comment" rows="6" style="width:100%;"
-                        placeholder="Enter text here"></textarea>
-                    <input class="form-control" type="submit" class="mt-2 btn btn-custom" value="Post Comment">
-                </form>
+                <form method = POST action="{{ url_for('event.show', id=event.id) }}">
 
+                    <h4>Write a comment:</h4>
+                    {{form.text (class="form-control mb-2", row="4", placeholder= "Enter text here")}}
+                    {{form.submit(class="btn btn-custom mt-2")}}
+                
+                </form>
+                {%else%}
+                <p>Please log in to write a comment</p>
+                {%endif%}
             </div>
         </div>
     </div>
