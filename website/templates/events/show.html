@@ -99,7 +99,7 @@
     <div class="card card-custom col-12 my-2">
         <div class="card-body">
             <h1 class="text-center">Comments</h1>
-            {{ render_form(comment_form,"/events/{0}/comment.format(event.id)")}}
+            {{ render_form(comment_form,"/events/{0}/comment".format(event.id) )}}
             {%for comment in event.comments%}
             <div>
                 <hr>
@@ -107,7 +107,7 @@
                     {{comment.date_post}}
                 </p>
                 <p class="my-0">
-                    {{comment.user.name}}
+
                 </p>
                 <p class="my-0">
                     {{comment.text}}

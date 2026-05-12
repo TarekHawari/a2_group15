@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from .models import Event
+from .models import Event, Comment
 from .forms import EventForm, CommentForm
 from .icons import icons
 
@@ -69,7 +69,7 @@ def comment(id):
     event = db.session.scalar(db.select(Event).where(Event.id == id))
     if form.validate_on_submit():
         # read the comment from the form
-        comment = Comment(text=form.text.data, Event=event)
+        comment = Comment(text=form.text.data, event=event)
         # here the back-referencing works - comment.destination is set
         # and the link is created
         db.session.add(comment)
