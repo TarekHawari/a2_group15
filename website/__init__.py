@@ -5,7 +5,7 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
-
+login_manager = LoginManager()
 
 # create a function that creates a web application
 # a web server will run this web application
@@ -25,21 +25,10 @@ def create_app():
 
     Bootstrap5(app)
 
-    # initialise the login manager
-    #  login_manager = LoginManager()
-
     # set the name of the login function that lets user login
-    # in our case it is auth.login (blueprintname.viewfunction name)
-    #  login_manager.login_view = "auth.login"
-    #  login_manager.init_app(app)
+    login_manager.login_view = "user.login"
+    login_manager.init_app(app)
 
-    # create a user loader function takes userid and returns User
-    # Importing inside the create_app function avoids circular references
-    #  from .models import User
-
-    #  @login_manager.user_loader
-    #  def load_user(user_id):
-    #      return db.session.scalar(db.select(User).where(User.id == user_id))
 
     from . import views
 
@@ -53,8 +42,8 @@ def create_app():
 
     app.register_blueprint(bookings.bookingbp)
 
-    #  from . import auth
+    from . import users
 
-    #  app.register_blueprint(auth.auth_bp)
+    app.register_blueprint(users.userbp)
 
     return app

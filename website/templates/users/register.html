@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-8 col-lg-6">
+                <div class="card card-custom">
+                    <div class="card-body p-4">
+                        <h2 class="text-center mb-4"> CREATE ACCOUNT </h2>
+
+                        <form action="" method="POST" novalidate>
+                            {{ form.hidden_tag() }}
+    
+                            <!-- username -->
+                            <div class="mb-3">
+                                {{ form.username.label(class="form-label") }}
+                                {{ form.username(class="form-control", placeholder="Enter your username") }}
+                                {% if form.username.errors %}
+                                    {% for error in form.username.errors %}
+                                        <div class="text-danger small">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            
+                            <!-- email -->
+                            <div class="mb-3">
+                                {{ form.email.label(class="form-label") }}
+                                {{ form.email(class="form-control", placeholder="Enter your email") }}
+                                {% for error in form.email.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            
+                            <!-- password -->
+                            <div class="mb-3">
+                                {{ form.password.label(class="form-label") }}
+                                {{ form.password(class="form-control", placeholder="Create a password") }}
+                                {% for error in form.password.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- password confirmed -->
+                            <div class="mb-3">
+                                {{ form.confirm.label(class="form-label") }}
+                                {{ form.confirm(class="form-control", placeholder="Confirm your password") }}
+                                {% for error in form.confirm.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- submit button and login button -->
+                            <div class="mb-3 d-flex align-items-center">
+                                {{ form.submit(class="btn btn-primary") }}
+
+                                <div class="ms-auto">
+                                    <a href="{{ url_for('user.login')}}" class="text-decoration-none link-primary">Log in here</a>
+                                </div>
+                            </div>
+                           
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

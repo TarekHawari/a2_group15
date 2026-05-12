@@ -1,8 +1,33 @@
 from flask import Blueprint, redirect, render_template, request, url_for
+from flask_login import current_user, login_required
+from .forms import BookingForm
+from .models import Order, Event
+from . import db
 
 bookingbp = Blueprint("booking", __name__, url_prefix="/bookings")
 
 
 @bookingbp.route("/")
 def show():
-    return render_template("bookings/show.html")
+    orders = Order.query.all()
+    form = BookingForm()
+    return render_template("bookings/show.html", orders=orders, form = form)
+
+@bookingbp.route("/create/<int:id>", methods=["POST"])
+@login_required
+def create(id):
+    event = db.session.scalar(db.select(Event).where(Event.id == id))
+    aa = request.form.get('aa', 0, type=int)
+    ga = request.form.get('ga', 0, type=int)
+    quantity = aa + ga
+    price = (aa * event.all_ages_price) + (ga * event.general_admission_price)
+    order = Order(
+        event_id=id,
+        quantity=quantity,
+        price=price,
+        total_price=price,
+        user_id= current_user.id
+    )
+    db.session.add(order)
+    db.session.commit()
+    return redirect(url_for("booking.show"))

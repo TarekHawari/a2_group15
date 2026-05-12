@@ -1,21 +1,26 @@
-from . import db
+from . import db, login_manager
 from datetime import datetime
 from flask_login import UserMixin
 
-# class User(db.Model, UserMixin):
-class User(db.Model,UserMixin):
-    __tablename__ = 'User'
+
+class User(db.Model, UserMixin):
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), index=True, unique=True, nullable=False)
-    emailid = db.Column(db.String(100), index=True, nullable=False)
-    password_hash = db.Column(db.String(200), nullable=False)
-    #password should not be stored in the database, encrypted password is stored 
-#    comments = db.Column('Comment', backref='user')
+    name = db.Column(db.String(64), index=True, unique=True, nullable=False)
+    email = db.Column(db.String(64), index=True, nullable=False)
+    password = db.Column(db.String(128), nullable=False)
+
     def __repr__(self):
         return f"Name: {self.name}"
 
+
+@login_manager.user_loader
+def load_user(user_id):
+    return db.session.scalar(db.select(User).where(User.id == user_id))
+
+
 class Event(db.Model):
-    __tablename__ = "events"
+    __tablename__ = "event"
     id = db.Column(db.Integer, primary_key=True)
     artist = db.Column(db.String(64))
     genre = db.Column(db.String(10))
@@ -36,15 +41,14 @@ class Event(db.Model):
     general_admission_available = db.Column(db.Integer)
 
     # relation to call event.comments and comment.event
-    # comments = db.relationship("Comment", backref="event")
+    comments = db.relationship("Comment", backref="event")
 
     def __repr__(self):
         return f"Artist: {self.artist}, Venue: {self.venue_name}"
 
 
-# class Comment(db.Model):
 class Comment(db.Model):
-    __tablename__ = 'comments'
+    __tablename__ = 'comment'
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(400))
     date_create  = db.Column(db.DateTime, default=datetime.now)
@@ -56,5 +60,14 @@ class Comment(db.Model):
         return f"Comment: {self.text}"
 
 
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    quantity = db.Column(db.Integer)
+    price = db.Column(db.Float)
+    total_price = db.Column(db.Float)
+    date_time = db.Column(db.DateTime, default=datetime.now)
 
-# class Order(db.Model):
+    # relationship
+    event = db.relationship('Event', backref='orders')

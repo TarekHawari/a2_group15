@@ -99,7 +99,8 @@
     <div class="card card-custom col-12 my-2">
         <div class="card-body">
             <h1 class="text-center">Comments</h1>
-
+            {{ render_form(comment_form,"/events/{0}/comment.format(event.id)")}}
+            {%for comment in event.comments%}
             <div>
                 <hr>
                 <p class="my-0">
@@ -112,36 +113,12 @@
                     {{comment.text}}
                 </p>
             </div>
-
-            <div>
-                <hr>
-                <p class="my-0">
-                    {{comment date_post}}
-                </p>
-                <p class="my-0">
-                    {{comment user}}
-                </p>
-                <p class="my-0">
-                    {{comment.text}}
-                </p>
-            </div>
-            {%else%}
-            <p class = "text-center"> No comment yet</p>
             {%endfor%}
+            <p class = "text-center"> No comment yet</p>
 
             <div>
                 <hr>
-                <!-- comment form -->
-                <form method = POST action="{{ url_for('event.show', id=event.id) }}">
-
-                    <h4>Write a comment:</h4>
-                    {{form.text (class="form-control mb-2", row="4", placeholder= "Enter text here")}}
-                    {{form.submit(class="btn btn-custom mt-2")}}
-                
-                </form>
-                {%else%}
-                <p>Please log in to write a comment</p>
-                {%endif%}
+ 
             </div>
         </div>
     </div>

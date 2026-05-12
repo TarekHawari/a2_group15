@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from .models import Event
-from .forms import EventForm
+from .forms import EventForm, CommentForm
 from .icons import icons
 
 # from .models import Event, Comment
@@ -8,6 +8,7 @@ from .icons import icons
 from . import db
 import os
 from werkzeug.utils import secure_filename
+from .forms import EventForm, BookingForm
 
 eventbp = Blueprint("event", __name__, url_prefix="/events")
 
@@ -15,7 +16,9 @@ eventbp = Blueprint("event", __name__, url_prefix="/events")
 @eventbp.route("/<id>")
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id == id))
-    return render_template("events/show.html", event=event, icons=icons)
+    form = BookingForm()
+    comment_form = CommentForm()
+    return render_template("events/show.html", event=event, icons=icons, form=form, comment_form=comment_form)
     # cform = CommentForm()
     # return render_template("events/show.html", event=event, form=cform, icons=icons)
 
@@ -58,3 +61,22 @@ def create():
         db.session.commit()
         return redirect(url_for("event.show", id=event.id))
     return render_template("events/create.html", form=form)
+
+@eventbp.route("/<id>/comment", methods=["GET", "POST"])
+def comment(id):
+    form = CommentForm()
+    # get the destination object associated to the page and the comment
+    event = db.session.scalar(db.select(Event).where(Event.id == id))
+    if form.validate_on_submit():
+        # read the comment from the form
+        comment = Comment(text=form.text.data, Event=event)
+        # here the back-referencing works - comment.destination is set
+        # and the link is created
+        db.session.add(comment)
+        db.session.commit()
+
+        # flashing a message which needs to be handled by the html
+        # flash('Your comment has been added', 'success')
+        print("Your comment has been added", "success")
+    # using redirect sends a GET request to destination.show
+    return redirect(url_for("event.show", id=id))
