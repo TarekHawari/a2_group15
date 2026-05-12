@@ -54,8 +54,8 @@ def login():
             login_user(user)
             nextp = request.args.get('next')
             if nextp is None or not nextp.startswith('/'):
-                # return redirect(url_for('main.index'))
-                return redirect(url_for("event.show", id=user.id))
+                return redirect(url_for('main.index'))
+            # return redirect(url_for("event.show", id=user.id))
             return redirect(nextp)
         else:
             flash(error)
