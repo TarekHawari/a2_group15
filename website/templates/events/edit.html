@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block content %}
+
+<div class="container">
+
+    <!-- create event form -->
+    <h1 class="text-center">Edit Event</h1>
+
+    <div class="card card-custom col-xxl-10 col-xl-12 my-2 mx-auto">
+        <div class="card-body">
+
+            {{ render_form(form) }}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

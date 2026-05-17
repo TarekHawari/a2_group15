@@ -23,19 +23,18 @@ class LoginForm(FlaskForm):
 
 
 class RegisterForm(FlaskForm):
-    username = StringField('Username', validators=[InputRequired()])
-    email = StringField('Email', validators=[InputRequired(), Email("Please enter a valid email")])
-    password = PasswordField('Password', validators=[InputRequired()])
-    confirm = PasswordField('Confirm Password', 
-    validators=[EqualTo('password', message='Passwords should match')])
-    submit = SubmitField('Register')
+    username = StringField("Username", validators=[InputRequired()])
+    email = StringField("Email", validators=[InputRequired(), Email("Please enter a valid email")])
+    password = PasswordField("Password", validators=[InputRequired()])
+    confirm = PasswordField("Confirm Password", validators=[EqualTo("password", message="Passwords should match")])
+    submit = SubmitField("Register")
 
 
 class CommentForm(FlaskForm):
-    text = TextAreaField('Comment', [InputRequired()])
+    text = TextAreaField("Comment", [InputRequired()])
 
-    #submit button
-    submit = SubmitField ('Create')
+    # submit button
+    submit = SubmitField("Create")
 
 
 class EventForm(FlaskForm):
@@ -112,10 +111,10 @@ class EventForm(FlaskForm):
     )
     image = FileField(
         "Event Image",
-        validators=[
-            FileRequired(message="Image cannot be empty"),
-            FileAllowed(allowed_files, message="Only supports jpg, jpeg, png, webp"),
-        ],
+        # validators=[
+        #     FileRequired(message="Image cannot be empty"),
+        #     FileAllowed(allowed_files, message="Only supports jpg, jpeg, png, webp"),
+        # ],
     )
     venue_name = StringField(
         "Venue Name",
@@ -200,5 +199,4 @@ class EventForm(FlaskForm):
 
 class BookingForm(FlaskForm):
     quantity = IntegerField("Quantity", validators=[InputRequired(), NumberRange(min=1)])
-    submit = SubmitField('Book Now')
-    
+    submit = SubmitField("Book Now")
