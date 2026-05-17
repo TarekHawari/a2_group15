@@ -1,5 +1,9 @@
 from flask import Blueprint, render_template, request
 
+from . import db
+from .models import Event
+from .icons import icons
+
 main_bp = Blueprint("main", __name__)
 
 
@@ -10,4 +14,6 @@ def index():
     page = request.args.get("p")
     genre = request.args.get("genre")
 
-    return render_template("index.html")
+    events = Event.query.all()
+
+    return render_template("index.html", events=events, icons=icons)

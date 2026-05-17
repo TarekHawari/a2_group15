@@ -147,40 +147,40 @@
 
     <!-- event cards -->
     <div class=" row">
-        <!-- card 1 -->
+
+        {% for e in events %}
+
         <div class="col-sm-12 col-lg-6 col-xl-4 my-2">
             <div class="card card-custom h-100">
-                <a href="{{ url_for('event.show', id=2) }}">
-                    <img src="{{ url_for('static', filename='img/AquaTriangle.jpg') }}" class="card-img-top"
-                        alt="Aqua Triangle">
+                <a href="{{ url_for('event.show', id=e.id) }}">
+                    <img src="{{ e.image }}" class="card-img-top" alt="{{ e.artist }}">
                 </a>
 
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="row">
-                            <h5 class="card-title">Aqua Triangle</h5>
+                            <h5 class="card-title">{{ e.artist }}</h5>
                         </div>
                         <div class="row small-icon">
-                            <a href="{{ url_for('main.index', genre='metal') }}">
-                                <img src="{{ url_for('static', filename='icons/BWMetal.svg') }}" alt="Metal">
+                            <a href="{{ url_for('main.index', genre=e.genre) }}">
+                                <img src="{{ url_for('static', filename=icons[e.genre]) }}" alt="{{ e.genre }}">
                             </a>
                         </div>
                     </div>
-                    <p class="card-text">Metal for the masses, Aqua Triangle are back again to bring their
-                        energetic mayhem to the shores of Australia.</p>
+                    <p class="card-text">{{ e.short_description }}</p>
                 </div>
 
                 <div class="card-footer">
                     <div class="d-flex flex-row">
                         <div class="col-6">
                             <p class="my-0">
-                                🗓️ 18/11/2026
+                                🗓️ {{ e.date }}
                             </p>
                             <p class="my-0">
-                                📍 The Brightside
+                                📍 {{ e.venue_name }}
                             </p>
                             <p class="my-0">
-                                🌆 Brisbane, QLD
+                                🌆 {{ e.venue_city }}, {{ e.venue_state }}
                             </p>
                         </div>
                         <div class="col-6 justify-content-end">
@@ -188,7 +188,7 @@
                                 <span class="badge bg-success">Open</span>
                             </p>
                             <p class="text-end my-2">
-                                <a href="{{ url_for('event.show', id=2) }}" class="btn btn-custom text-end">View
+                                <a href="{{ url_for('event.show', id=e.id) }}" class="btn btn-custom text-end">View
                                     Details</a>
                             </p>
                         </div>
@@ -197,255 +197,7 @@
             </div>
         </div>
 
-        <!-- card 2 -->
-        <div class="col-sm-12 col-lg-6 col-xl-4 my-2">
-            <div class="card card-custom h-100">
-                <a href="{{url_for('event.show', id=2)}}">
-                    <img src="{{ url_for('static', filename='img/BlueEclipse.jpg') }}" class="card-img-top"
-                        alt="Blue Eclipse">
-                </a>
-
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div class="row">
-                            <h5 class="card-title">Blue Eclipse</h5>
-                        </div>
-                        <div class="row small-icon">
-                            <a href="{{ url_for('main.index', genre='electronic') }}">
-                                <img src="{{ url_for('static', filename='icons/BWElectronic.svg') }}" alt="Electronic">
-                            </a>
-                        </div>
-                    </div>
-                    <p class="card-text">Electronic like you've never heard before!</p>
-                </div>
-
-                <div class="card-footer">
-                    <div class="d-flex flex-row">
-                        <div class="col-6">
-                            <p class="my-0">
-                                🗓️ 9/9/2026
-                            </p>
-                            <p class="my-0">
-                                📍 The Zoo
-                            </p>
-                            <p class="my-0">
-                                🌆 Brisbane, QLD
-                            </p>
-                        </div>
-                        <div class="col-6 justify-content-end">
-                            <p class="text-end my-0">
-                                <span class="badge bg-danger">Cancelled</span>
-                            </p>
-                            <p class="text-end my-2">
-                                <a href="{{ url_for('event.show', id=2) }}" class="btn btn-custom text-end">View
-                                    Details</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- card 3 -->
-        <div class="col-sm-12 col-lg-6 col-xl-4 my-2">
-            <div class="card card-custom h-100">
-                <a href="{{url_for('event.show', id=2)}}">
-                    <img src="{{ url_for('static', filename='img/EcstaticChild.jpg') }}" class="card-img-top"
-                        alt="Ecstatic Child">
-                </a>
-
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div class="row">
-                            <h5 class="card-title">Ecstatic Child</h5>
-                        </div>
-                        <div class="row small-icon">
-                            <a href="{{ url_for('main.index', genre='pop') }}">
-                                <img src="{{ url_for('static', filename='icons/BWPop.svg') }}" alt="Pop">
-                            </a>
-                        </div>
-                    </div>
-                    <p class="card-text">Pop sensation Ecstatic Child is back in Australia bringing her famous
-                        style, class and ambiance for all to enjoy. Her first tour in 3 years is sure to be a
-                        night of fun and excitement.</p>
-                </div>
-
-                <div class="card-footer">
-                    <div class="d-flex flex-row">
-                        <div class="col-6">
-                            <p class="my-0">
-                                🗓️ 21/10/2026
-                            </p>
-                            <p class="my-0">
-                                📍 Black Bear Lodge
-                            </p>
-                            <p class="my-0">
-                                🌆 Brisbane, QLD
-                            </p>
-                        </div>
-                        <div class="col-6 justify-content-end">
-                            <p class="text-end my-0">
-                                <span class="badge bg-warning text-dark">Sold Out</span>
-                            </p>
-                            <p class="text-end my-2">
-                                <a href="{{ url_for('event.show', id=2) }}" class="btn btn-custom text-end">View
-                                    Details</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- card 4 -->
-        <div class="col-sm-12 col-lg-6 col-xl-4 my-2">
-            <div class="card card-custom h-100">
-                <a href="{{ url_for('event.show', id=2) }}">
-                    <img src="{{ url_for('static', filename='img/RedBoard.jpg') }}" class="card-img-top"
-                        alt="Red Board">
-                </a>
-
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div class="row">
-                            <h5 class="card-title">Red Board</h5>
-                        </div>
-                        <div class="row small-icon">
-                            <a href="{{ url_for('main.index', genre='rock') }}">
-                                <img src="{{ url_for('static', filename='icons/BWRock.svg') }}" alt="Rock">
-                            </a>
-                        </div>
-                    </div>
-                    <p class="card-text">Rock legends Red Board and their trademark style are touring Australia
-                        for the first time!</p>
-                </div>
-
-                <div class="card-footer">
-                    <div class="d-flex flex-row">
-                        <div class="col-6">
-                            <p class="my-0">
-                                🗓️ 3/1/2027
-                            </p>
-                            <p class="my-0">
-                                📍 Crowbar
-                            </p>
-                            <p class="my-0">
-                                🌆 Brisbane, QLD
-                            </p>
-                        </div>
-                        <div class="col-6 justify-content-end">
-                            <p class="text-end my-0">
-                                <span class="badge bg-secondary">Inactive</span>
-                            </p>
-                            <p class="text-end my-2">
-                                <a href="{{ url_for('event.show', id=2) }}" class="btn btn-custom text-end">View
-                                    Details</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- card 5 -->
-        <div class="col-sm-12 col-lg-6 col-xl-4 my-2">
-            <div class="card card-custom h-100">
-                <a href="{{url_for('event.show', id=2)}}">
-                    <img src="{{ url_for('static', filename='img/SmokeyLights.jpg') }}" class="card-img-top"
-                        alt="Smokey Lights">
-                </a>
-
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div class="row">
-                            <h5 class="card-title">Smokey Lights</h5>
-                        </div>
-                        <div class="row small-icon">
-                            <a href="{{ url_for('main.index', genre='hiphop') }}">
-                                <img src="{{ url_for('static', filename='icons/BWHip-Hop.svg') }}" alt="Hip-Hop">
-                            </a>
-                        </div>
-                    </div>
-                    <p class="card-text">Hard hitting Hip-Hop duo Smokey Lights are going to let loose this
-                        coming July, with their renowned lyricism and dope beats to get your blood flowing.</p>
-                </div>
-
-                <div class="card-footer">
-                    <div class="d-flex flex-row">
-                        <div class="col-6">
-                            <p class="my-0">
-                                🗓️ 14/7/2026
-                            </p>
-                            <p class="my-0">
-                                📍 The Junk Bar
-                            </p>
-                            <p class="my-0">
-                                🌆 Brisbane, QLD
-                            </p>
-                        </div>
-                        <div class="col-6 justify-content-end">
-                            <p class="text-end my-0">
-                                <span class="badge bg-success">Open</span>
-                            </p>
-                            <p class="text-end my-2">
-                                <a href="{{ url_for('event.show', id=2) }}" class="btn btn-custom text-end">View
-                                    Details</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- card 6 -->
-        <div class="col-sm-12 col-lg-6 col-xl-4 my-2">
-            <div class="card card-custom h-100">
-                <a href="{{url_for('event.show', id=2)}}">
-                    <img src="{{ url_for('static', filename='img/WideCross.jpg') }}" class="card-img-top"
-                        alt="Wide Cross">
-                </a>
-
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div class="row">
-                            <h5 class="card-title">Wide Cross</h5>
-                        </div>
-                        <div class="row small-icon">
-                            <a href="{{ url_for('main.index', genre='jazz') }}">
-                                <img src="{{ url_for('static', filename='icons/BWJazz.svg') }}" alt="Jazz">
-                            </a>
-                        </div>
-                    </div>
-                    <p class="card-text">Smooth and cool are the sounds of Wide Cross. Join them in their second
-                        tour of Australia bringing good vibes to all.</p>
-                </div>
-
-                <div class="card-footer">
-                    <div class="d-flex flex-row">
-                        <div class="col-6">
-                            <p class="my-0">
-                                🗓️ 5/12/2026
-                            </p>
-                            <p class="my-0">
-                                📍 Suncorp Stadium
-                            </p>
-                            <p class="my-0">
-                                🌆 Brisbane, QLD
-                            </p>
-                        </div>
-                        <div class="col-6 justify-content-end">
-                            <p class="text-end my-0">
-                                <span class="badge bg-success">Open</span>
-                            </p>
-                            <p class="text-end my-2">
-                                <a href="{{ url_for('event.show', id=2) }}" class="btn btn-custom text-end">View
-                                    Details</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
 
         <div>
             <nav aria-label="Page navigation example">
