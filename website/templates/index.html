@@ -86,39 +86,41 @@
     <!-- event cards -->
     <div class=" row">
 
-        {% for e in events %}
+        <!-- aaa -->
+
+        {% for event in events %}
 
         <div class="col-sm-12 col-lg-6 col-xl-4 my-2">
             <div class="card card-custom h-100">
-                <a href="{{ url_for('event.show', id=e.id) }}">
-                    <img src="{{ e.image }}" class="card-img-top" alt="{{ e.artist }}">
+                <a href="{{ url_for('event.show', id=event.id) }}">
+                    <img src="{{ event.image }}" class="card-img-top" alt="{{ event.artist }}">
                 </a>
 
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="row">
-                            <h5 class="card-title">{{ e.artist }}</h5>
+                            <h5 class="card-title">{{ event.artist }}</h5>
                         </div>
                         <div class="row small-icon">
-                            <a href="{{ url_for('main.index', genre=e.genre) }}">
-                                <img src="{{ url_for('static', filename=icons[e.genre]) }}" alt="{{ e.genre }}">
+                            <a href="{{ url_for('main.index', genre=event.genre) }}">
+                                <img src="{{ url_for('static', filename=icons[event.genre]) }}" alt="{{ event.genre }}">
                             </a>
                         </div>
                     </div>
-                    <p class="card-text">{{ e.short_description }}</p>
+                    <p class="card-text">{{ event.short_description }}</p>
                 </div>
 
                 <div class="card-footer">
                     <div class="d-flex flex-row">
                         <div class="col-6">
                             <p class="my-0">
-                                🗓️ {{ e.date }}
+                                🗓️ {{ event.date }}
                             </p>
                             <p class="my-0">
-                                📍 {{ e.venue_name }}
+                                📍 {{ event.venue_name }}
                             </p>
                             <p class="my-0">
-                                🌆 {{ e.venue_city }}, {{ e.venue_state }}
+                                🌆 {{ event.venue_city }}, {{ event.venue_state }}
                             </p>
                         </div>
                         <div class="col-6 justify-content-end">
@@ -126,7 +128,7 @@
                                 <span class="badge bg-success">Open</span>
                             </p>
                             <p class="text-end my-2">
-                                <a href="{{ url_for('event.show', id=e.id) }}" class="btn btn-custom text-end">View
+                                <a href="{{ url_for('event.show', id=event.id) }}" class="btn btn-custom text-end">View
                                     Details</a>
                             </p>
                         </div>
