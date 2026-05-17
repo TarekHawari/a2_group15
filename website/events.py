@@ -34,7 +34,9 @@ def check_upload_file(form):
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id == id))
     form = BookingForm()
-    return render_template("events/show.html", event=event, icons=icons, form=form)
+    aa_available = 8 if event.all_ages_available >= 8 else event.all_ages_available
+    ga_available = 8 if event.general_admission_available >= 8 else event.general_admission_available
+    return render_template("events/show.html", event=event, icons=icons, form=form, aa_available=aa_available, ga_available=ga_available)
     # cform = CommentForm()
     # return render_template("events/show.html", event=event, form=cform, icons=icons)
 

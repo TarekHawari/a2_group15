@@ -40,29 +40,17 @@
             <p class="text-end my-0">
               <label for="aa">All Ages: ${{ "{:.2f}".format(event.all_ages_price) }}</label>
               <select id="aa" name="aa">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
+                {% for i in range(aa_available + 1) %}
+                <option value="{{i}}">{{i}}</option>
+                {% endfor %}
               </select>
             </p>
             <p class="text-end my-0">
               <label for="ga">General Admission: ${{ "{:.2f}".format(event.general_admission_price) }}</label>
               <select id="ga" name="ga" class="mt-2">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
+                {% for i in range(ga_available + 1) %}
+                <option value="{{i}}">{{i}}</option>
+                {% endfor %}
               </select>
             </p>
             <p class="text-end my-2">
