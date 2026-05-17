@@ -66,7 +66,9 @@
 
     <!-- genres -->
     <div class="row">
+
         {% for genre, filename in icons.items() %}
+
         <div class="col-2 text-center my-3 large-icon">
             <div>
                 <a href="{{ url_for('main.index', genre=genre) }}">
@@ -80,13 +82,13 @@
             </div>
             </a>
         </div>
+
         {% endfor %}
+
     </div>
 
     <!-- event cards -->
     <div class=" row">
-
-        <!-- aaa -->
 
         {% for event in events %}
 
