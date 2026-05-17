@@ -81,7 +81,7 @@ def edit(id):
     event = db.session.scalar(db.select(Event).where(Event.id == id))
     form = EventForm(obj=event)
     form.genre.default = event.genre
-    form.acknowledgement.default = event.acknowledgement  # need to update this array in forms.py
+    form.acknowledgement.default = event.acknowledgement
     if form.validate_on_submit():
         # if a new image has been uploaded, process it, else leave event.image untouched
         if isinstance(form.image.data, FileStorage):

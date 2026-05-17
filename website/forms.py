@@ -59,9 +59,9 @@ class EventForm(FlaskForm):
     ]
 
     acknowledgement_choices = [
-        ("none", "No Acknowledgement of Country"),
-        ("generic", "Acknowledgement of Country: generic"),
-        ("enhanced", "Acknowledgement of Country: enhanced"),
+        ("No Acknowledgement of Country", "No Acknowledgement of Country"),
+        ("Acknowledgement of Country: Generic", "Acknowledgement of Country: Generic"),
+        ("Acknowledgement of Country: Enhanced", "Acknowledgement of Country: Enhanced"),
     ]
 
     state_choices = [
@@ -93,7 +93,7 @@ class EventForm(FlaskForm):
     acknowledgement = SelectField(
         "Acknowledgement of Country",
         choices=acknowledgement_choices,
-        validators=[InputRequired(), (Length(max=8))],
+        validators=[InputRequired(), (Length(max=36))],
     )
     short_description = TextAreaField(
         "Short Description",
@@ -194,7 +194,7 @@ class EventForm(FlaskForm):
             NumberRange(min=1, max=200000),
         ],
     )
-    submit = SubmitField("Create")
+    submit = SubmitField("Submit")
 
 
 class BookingForm(FlaskForm):
