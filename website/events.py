@@ -11,6 +11,9 @@ from werkzeug.utils import secure_filename
 from werkzeug.datastructures.file_storage import FileStorage
 from .forms import EventForm, BookingForm
 
+import random
+import string
+
 eventbp = Blueprint("event", __name__, url_prefix="/events")
 
 
@@ -19,8 +22,10 @@ def check_upload_file(form):
     fp = form.image.data
     filename = fp.filename
     base_path = os.path.dirname(__file__)
-    upload_path = os.path.join(base_path, img_path, secure_filename(filename))
-    db_upload_path = "/" + img_path + "/" + secure_filename(filename)
+    random_string = "".join(random.choices(string.ascii_letters + string.digits, k=8))
+    f = random_string + "-" + secure_filename(filename)
+    upload_path = os.path.join(base_path, img_path, f)
+    db_upload_path = "/" + img_path + "/" + f
     fp.save(upload_path)
     return db_upload_path
 

@@ -17,6 +17,12 @@
         </div>
       </div>
       <p class="card-text">{{ event.short_description }}</p>
+      <!-- Edit details button, need to edit to only show if the user is the event creator -->
+      <div>
+        <div class="btn btn-custom">
+          <a href="{{ url_for('event.edit', id=event.id) }}">Edit Details</a>
+        </div>
+      </div>
     </div>
     <div class="card-footer">
       <div class="d-flex flex-row">
