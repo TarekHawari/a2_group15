@@ -64,86 +64,23 @@
 {% block content %}
 <div class="container">
 
-    <!-- genres row -->
+    <!-- genres -->
     <div class="row">
+        {% for genre, filename in icons.items() %}
         <div class="col-2 text-center my-3 large-icon">
             <div>
-                <a href="{{ url_for('main.index', genre='electronic') }}">
-                    <img src="{{ url_for('static', filename='icons/BWElectronic.svg') }}" alt="Electronic">
+                <a href="{{ url_for('main.index', genre=genre) }}">
+                    <img src="{{ url_for('static', filename=filename) }}" alt="{{ genre }}">
                 </a>
             </div>
             <div>
-                <a href="{{ url_for('main.index', genre='electronic') }}">
-                    Electronic
+                <a href="{{ url_for('main.index', genre=genre) }}">
+                    {{ genre }}
                 </a>
             </div>
             </a>
         </div>
-
-        <div class="col-2 text-center my-3 large-icon">
-            <div>
-                <a href="{{ url_for('main.index', genre='hiphop') }}">
-                    <img src="{{ url_for('static', filename='icons/BWHip-Hop.svg') }}" alt="Hip-Hop">
-                </a>
-            </div>
-            <div>
-                <a href="{{ url_for('main.index', genre='hiphop') }}">
-                    Hip-Hop
-                </a>
-            </div>
-            </a>
-        </div>
-        <div class="col-2 text-center my-3 large-icon">
-            <a href="{{ url_for('event.show', id=2) }}">
-                <div>
-                    <a href="{{ url_for('main.index', genre='jazz') }}">
-                        <img src="{{ url_for('static', filename='icons/BWJazz.svg') }}" alt="Jazz">
-                    </a>
-                </div>
-                <div>
-                    <a href="{{ url_for('main.index', genre='jazz') }}">
-                        Jazz
-                    </a>
-                </div>
-            </a>
-        </div>
-        <div class="col-2 text-center my-3 large-icon">
-            <div>
-                <a href="{{ url_for('main.index', genre='metal') }}">
-                    <img src="{{ url_for('static', filename='icons/BWMetal.svg') }}" alt="Metal">
-                </a>
-            </div>
-            <div>
-                <a href="{{ url_for('main.index', genre='metal') }}">
-                    Metal
-                </a>
-            </div>
-            </a>
-        </div>
-        <div class="col-2 text-center my-3 large-icon">
-            <div>
-                <a href="{{ url_for('main.index', genre='pop') }}">
-                    <img src="{{ url_for('static', filename='icons/BWPop.svg') }}" alt="Pop">
-                </a>
-            </div>
-            <div>
-                <a href="{{ url_for('main.index', genre='pop') }}">
-                    Pop
-                </a>
-            </div>
-        </div>
-        <div class="col-2 text-center my-3 large-icon">
-            <div>
-                <a href="{{ url_for('main.index', genre='rock') }}">
-                    <img src="{{ url_for('static', filename='icons/BWRock.svg') }}" alt="Rock">
-                </a>
-            </div>
-            <div>
-                <a href="{{ url_for('main.index', genre='rock') }}">
-                    Rock
-                </a>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 
     <!-- event cards -->
@@ -200,6 +137,7 @@
 
         {% endfor %}
 
+        <!-- pagination -->
         <div>
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-end my-2">
