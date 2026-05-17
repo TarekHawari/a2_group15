@@ -30,7 +30,7 @@
           <p class="my-0">🕜 {{ event.start_time }}-{{ event.end_time }}</p>
           <p class="my-0">🗓️ {{ event.date }}</p>
           <p class="my-0">📍 {{ event.venue_name }}</p>
-          <p class="my-0">🌆 {{ event.venue_city }}, {{event.venue_state}}</p>
+          <p class="my-0">🌆 {{ event.venue_city }}, {{ event.venue_state }}</p>
         </div>
         <div class="col-6">
           <!-- purchase ticket form -->
@@ -38,7 +38,7 @@
           <form action="{{ url_for('booking.create', id=event.id) }}" method="POST">
             {{ form.hidden_tag() }}
             <p class="text-end my-0">
-              <label for="aa">All Ages: ${{ event.all_ages_price }}</label>
+              <label for="aa">All Ages: ${{ "{:.2f}".format(event.all_ages_price) }}</label>
               <select id="aa" name="aa">
                 <option value="0">0</option>
                 <option value="1">1</option>
@@ -52,7 +52,7 @@
               </select>
             </p>
             <p class="text-end my-0">
-              <label for="ga">General Admission: ${{ event.general_admission_price }}</label>
+              <label for="ga">General Admission: ${{ "{:.2f}".format(event.general_admission_price) }}</label>
               <select id="ga" name="ga" class="mt-2">
                 <option value="0">0</option>
                 <option value="1">1</option>
