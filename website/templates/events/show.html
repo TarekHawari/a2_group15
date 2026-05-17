@@ -4,7 +4,7 @@
 <div class="container">
   <!-- header card -->
   <div class="card card-custom col-12 mt-2">
-    <img src="{{ event.image }}" class="card-img-top" alt="Aqua Triangle" />
+    <img src="{{ event.image }}" class="card-img-top" alt="{{ event.artist }}" />
     <div class="card-body">
       <div class="d-flex justify-content-between">
         <div class="row">
@@ -12,10 +12,7 @@
         </div>
         <div class="row medium-icon">
           <a href="{{ url_for('main.index', genre=event.genre) }}">
-            <img
-              src="{{ url_for('static', filename=icons[event.genre]) }}"
-              alt="{{ event.genre }}"
-            />
+            <img src="{{ url_for('static', filename=icons[event.genre]) }}" alt="{{ event.genre }}" />
           </a>
         </div>
       </div>
@@ -32,10 +29,7 @@
         <div class="col-6">
           <!-- purchase ticket form -->
           <!-- purchase ticket form -->
-          <form
-            action="{{ url_for('booking.create', id=event.id) }}"
-            method="POST"
-          >
+          <form action="{{ url_for('booking.create', id=event.id) }}" method="POST">
             {{ form.hidden_tag() }}
             <p class="text-end my-0">
               <label for="aa">All Ages: ${{ event.all_ages_price }}</label>
@@ -52,9 +46,7 @@
               </select>
             </p>
             <p class="text-end my-0">
-              <label for="ga"
-                >General Admission: ${{ event.general_admission_price }}</label
-              >
+              <label for="ga">General Admission: ${{ event.general_admission_price }}</label>
               <select id="ga" name="ga" class="mt-2">
                 <option value="0">0</option>
                 <option value="1">1</option>
@@ -78,16 +70,10 @@
 
   <!-- google maps iframe -->
   <div>
-    <iframe
-      class="card card-custom"
+    <iframe class="card card-custom"
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3540.39188146807!2d153.0325199123986!3d-27.457056676228046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b9159f2576bbb8f%3A0x5c71ef060522d4e2!2sThe%20Brightside%20Brisbane!5e0!3m2!1sen!2sau!4v1776158827443!5m2!1sen!2sau"
-      width="100%"
-      height="350"
-      style="border: 0"
-      allowfullscreen=""
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-    ></iframe>
+      width="100%" height="350" style="border: 0" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
 
   <!-- event details -->
@@ -136,19 +122,9 @@
         <!-- comment form -->
         <form action="{{ url_for('event.show', id=2) }}">
           <h4>Write a comment:</h4>
-          <textarea
-            class="form-control mb-2"
-            name="comment"
-            rows="6"
-            style="width: 100%"
-            placeholder="Enter text here"
-          ></textarea>
-          <input
-            class="form-control"
-            type="submit"
-            class="mt-2 btn btn-custom"
-            value="Post Comment"
-          />
+          <textarea class="form-control mb-2" name="comment" rows="6" style="width: 100%"
+            placeholder="Enter text here"></textarea>
+          <input class="form-control" type="submit" class="mt-2 btn btn-custom" value="Post Comment" />
         </form>
       </div>
     </div>
