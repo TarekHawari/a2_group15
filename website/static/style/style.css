@@ -58,7 +58,8 @@ a:hover {
 
 .small-icon img:hover,
 .medium-icon img:hover,
-.large-icon img:hover {
+.large-icon img:hover,
+.large-icon-selected {
     /* #9c4a91 https://clampcss.com/css-filter.html */
     filter: brightness(0) saturate(100%) invert(41%) sepia(49%) saturate(689%) hue-rotate(257deg) brightness(81%) contrast(88%);
 }

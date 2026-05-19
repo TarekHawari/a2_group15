@@ -21,4 +21,4 @@ def index():
         # events = Event.query.all()
         events = db.session.execute(db.select(Event)).scalars()
 
-    return render_template("index.html", events=events, icons=icons)
+    return render_template("index.html", events=events, icons=icons, selected_genre=genre)
