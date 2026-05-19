@@ -59,7 +59,6 @@ def create():
             long_description=form.long_description.data,
             image=db_file_path,
             venue_name=form.venue_name.data,
-            venue_address=form.venue_address.data,
             venue_city=form.venue_city.data,
             venue_state=form.venue_state.data,
             start_time=form.start_time.data,
@@ -95,7 +94,6 @@ def edit(id):
         event.long_description = form.long_description.data
         # event.image = db_file_path
         event.venue_name = form.venue_name.data
-        event.venue_address = form.venue_address.data
         event.venue_city = form.venue_city.data
         event.venue_state = form.venue_state.data
         event.start_time = form.start_time.data

@@ -29,7 +29,6 @@ class Event(db.Model):
     long_description = db.Column(db.String(4096))
     image = db.Column(db.String(400))
     venue_name = db.Column(db.String(32))
-    venue_address = db.Column(db.String(32))
     venue_city = db.Column(db.String(32))
     venue_state = db.Column(db.String(32))
     start_time = db.Column(db.Time)

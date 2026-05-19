@@ -123,13 +123,6 @@ class EventForm(FlaskForm):
             (Length(max=32)),
         ],
     )
-    venue_address = StringField(
-        "Venue Address",
-        validators=[
-            InputRequired(),
-            (Length(max=32)),
-        ],
-    )
     venue_city = StringField(
         "Venue City",
         validators=[
