@@ -36,6 +36,7 @@ class Event(db.Model):
     date = db.Column(db.Date)
     general_admission_price = db.Column(db.Float)
     general_admission_available = db.Column(db.Integer)
+    status = db.Column(db.String(16))
 
     # relation to call event.comments and comment.event
     # comments = db.relationship("Comment", backref="event")

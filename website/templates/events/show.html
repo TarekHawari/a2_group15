@@ -43,18 +43,32 @@
           <form action="{{ url_for('booking.create', id=event.id) }}" method="POST">
             {{ form.hidden_tag() }}
             <p class="text-end my-0">
-              <!-- add status here -->
+              {% if event.status == "Open" %}
+              <span class="badge bg-success">Open</span>
+              {% elif event.status == "Cancelled" %}
+              <span class="badge bg-danger">Cancelled</span>
+              {% elif event.status == "Sold Out" %}
+              <span class="badge bg-warning text-dark">Sold Out</span>
+              {% else %}
+              <span class="badge bg-secondary">Inactive</span>
+              {% endif %}
             </p>
             <p class="text-end my-0">
               <label for="ga">General Admission: ${{ "{:.2f}".format(event.general_admission_price) }}</label>
+              {% if event.status == "Open" %}
               <select id="ga" name="ga" class="mt-2">
                 {% for i in range(1, ga_available + 1) %}
                 <option value="{{i}}">{{i}}</option>
                 {% endfor %}
               </select>
+              {% endif %}
             </p>
             <p class="text-end my-2">
+              {% if event.status == "Open" %}
               <input type="submit" value="Buy Tickets" class="btn btn-custom" />
+              {% else %}
+              <button type="button" class="btn btn-inactive" disabled>Unavailable</button>
+              {% endif %}
             </p>
           </form>
         </div>

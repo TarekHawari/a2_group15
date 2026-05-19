@@ -139,7 +139,15 @@
                         </div>
                         <div class="col-6 justify-content-end">
                             <p class="text-end my-0">
+                                {% if event.status == "Open" %}
                                 <span class="badge bg-success">Open</span>
+                                {% elif event.status == "Cancelled" %}
+                                <span class="badge bg-danger">Cancelled</span>
+                                {% elif event.status == "Sold Out" %}
+                                <span class="badge bg-warning text-dark">Sold Out</span>
+                                {% else %}
+                                <span class="badge bg-secondary">Inactive</span>
+                                {% endif %}
                             </p>
                             <p class="text-end my-2">
                                 <a href="{{ url_for('event.show', id=event.id) }}" class="btn btn-custom text-end">View

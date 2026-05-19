@@ -65,6 +65,7 @@ def create():
             date=form.date.data,
             general_admission_price=form.general_admission_price.data,
             general_admission_available=form.general_admission_available.data,
+            status="Open",
         )
         db.session.add(event)
         db.session.commit()
@@ -107,6 +108,6 @@ def edit(id):
 @eventbp.route("/cancel/<id>")
 def cancel(id):
     event = db.session.scalar(db.select(Event).where(Event.id == id))
-    # edit event status here
-    # db.session.commit()
+    event.status = "Cancelled"
+    db.session.commit()
     return redirect(url_for("event.show", id=event.id))

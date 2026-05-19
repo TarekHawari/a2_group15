@@ -40,6 +40,11 @@ a:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 2px 2px 5px #e89393 inset;
 }
 
+.btn-inactive {
+    background-color: #a3a3a3;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 2px 2px 5px #bebebe inset;
+}
+
 .btn-custom:hover,
 .btn-cancel:hover {
     border-color: #9c4a91;
