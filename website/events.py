@@ -34,9 +34,8 @@ def check_upload_file(form):
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id == id))
     form = BookingForm()
-    aa_available = 8 if event.all_ages_available >= 8 else event.all_ages_available
     ga_available = 8 if event.general_admission_available >= 8 else event.general_admission_available
-    return render_template("events/show.html", event=event, icons=icons, form=form, aa_available=aa_available, ga_available=ga_available)
+    return render_template("events/show.html", event=event, icons=icons, form=form, ga_available=ga_available)
     # cform = CommentForm()
     # return render_template("events/show.html", event=event, form=cform, icons=icons)
 
@@ -64,9 +63,7 @@ def create():
             start_time=form.start_time.data,
             end_time=form.end_time.data,
             date=form.date.data,
-            all_ages_price=form.all_ages_price.data,
             general_admission_price=form.general_admission_price.data,
-            all_ages_available=form.all_ages_available.data,
             general_admission_available=form.general_admission_available.data,
         )
         db.session.add(event)
@@ -99,9 +96,7 @@ def edit(id):
         event.start_time = form.start_time.data
         event.end_time = form.end_time.data
         event.date = form.date.data
-        event.all_ages_price = form.all_ages_price.data
         event.general_admission_price = form.general_admission_price.data
-        event.all_ages_available = form.all_ages_available.data
         event.general_admission_available = form.general_admission_available.data
 
         db.session.commit()

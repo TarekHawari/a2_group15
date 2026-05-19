@@ -159,29 +159,15 @@ class EventForm(FlaskForm):
             InputRequired(),
         ],
     )
-    all_ages_price = FloatField(
-        "All Ages Price",
-        validators=[
-            InputRequired(),
-            NumberRange(),
-        ],
-    )
     general_admission_price = FloatField(
-        "General Admission Price",
+        "Ticket Price",
         validators=[
             InputRequired(),
             NumberRange(),
-        ],
-    )
-    all_ages_available = IntegerField(
-        "All Ages Tickets Available",
-        validators=[
-            InputRequired(),
-            NumberRange(max=200000),
         ],
     )
     general_admission_available = IntegerField(
-        "General Admission Tickets Available",
+        "Tickets Available",
         validators=[
             InputRequired(),
             NumberRange(min=1, max=200000),

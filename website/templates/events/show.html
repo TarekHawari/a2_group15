@@ -32,8 +32,8 @@
     <div class="card-footer">
       <div class="d-flex flex-row">
         <div class="col-6">
-          <p class="my-0">🕜 {{ event.start_time }}-{{ event.end_time }}</p>
-          <p class="my-0">🗓️ {{ event.date }}</p>
+          <p class="my-0">🕜 {{ event.start_time.strftime("%I:%M %p") }} - {{ event.end_time.strftime("%I:%M %p") }}</p>
+          <p class="my-0">🗓️ {{ event.date.strftime("%A, %B %d %Y") }}</p>
           <p class="my-0">📍 {{ event.venue_name }}</p>
           <p class="my-0">🌆 {{ event.venue_city }}, {{ event.venue_state }}</p>
         </div>
@@ -43,17 +43,12 @@
           <form action="{{ url_for('booking.create', id=event.id) }}" method="POST">
             {{ form.hidden_tag() }}
             <p class="text-end my-0">
-              <label for="aa">All Ages: ${{ "{:.2f}".format(event.all_ages_price) }}</label>
-              <select id="aa" name="aa">
-                {% for i in range(aa_available + 1) %}
-                <option value="{{i}}">{{i}}</option>
-                {% endfor %}
-              </select>
+              <!-- add status here -->
             </p>
             <p class="text-end my-0">
               <label for="ga">General Admission: ${{ "{:.2f}".format(event.general_admission_price) }}</label>
               <select id="ga" name="ga" class="mt-2">
-                {% for i in range(ga_available + 1) %}
+                {% for i in range(1, ga_available + 1) %}
                 <option value="{{i}}">{{i}}</option>
                 {% endfor %}
               </select>

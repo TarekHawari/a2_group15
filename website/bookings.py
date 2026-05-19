@@ -11,23 +11,16 @@ bookingbp = Blueprint("booking", __name__, url_prefix="/bookings")
 def show():
     orders = Order.query.all()
     form = BookingForm()
-    return render_template("bookings/show.html", orders=orders, form = form)
+    return render_template("bookings/show.html", orders=orders, form=form)
+
 
 @bookingbp.route("/create/<int:id>", methods=["POST"])
 @login_required
 def create(id):
     event = db.session.scalar(db.select(Event).where(Event.id == id))
-    aa = request.form.get('aa', 0, type=int)
-    ga = request.form.get('ga', 0, type=int)
-    quantity = aa + ga
-    price = (aa * event.all_ages_price) + (ga * event.general_admission_price)
-    order = Order(
-        event_id=id,
-        quantity=quantity,
-        price=price,
-        total_price=price,
-        user_id= current_user.id
-    )
+    quantity = request.form.get("ga", 0, type=int)
+    price = quantity * event.general_admission_price
+    order = Order(event_id=id, quantity=quantity, price=price, total_price=price, user_id=current_user.id)
     db.session.add(order)
     db.session.commit()
     return redirect(url_for("booking.show"))

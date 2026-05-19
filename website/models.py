@@ -34,9 +34,7 @@ class Event(db.Model):
     start_time = db.Column(db.Time)
     end_time = db.Column(db.Time)
     date = db.Column(db.Date)
-    all_ages_price = db.Column(db.Float)
     general_admission_price = db.Column(db.Float)
-    all_ages_available = db.Column(db.Integer)
     general_admission_available = db.Column(db.Integer)
 
     # relation to call event.comments and comment.event
