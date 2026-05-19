@@ -109,3 +109,11 @@ def edit(id):
         db.session.commit()
         return redirect(url_for("event.show", id=event.id))
     return render_template("events/edit.html", form=form)
+
+
+@eventbp.route("/cancel/<id>")
+def cancel(id):
+    event = db.session.scalar(db.select(Event).where(Event.id == id))
+    # edit event status here
+    # db.session.commit()
+    return redirect(url_for("event.show", id=event.id))

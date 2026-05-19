@@ -4,7 +4,7 @@ from flask_login import UserMixin
 
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'user'
+    __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, unique=True, nullable=False)
     email = db.Column(db.String(64), index=True, nullable=False)
@@ -48,13 +48,13 @@ class Event(db.Model):
 
 
 class Comment(db.Model):
-    __tablename__ = 'comments'
+    __tablename__ = "comments"
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(400))
-    date_create  = db.Column(db.DateTime, default=datetime.now)
-    
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
+    date_create = db.Column(db.DateTime, default=datetime.now)
+
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    event_id = db.Column(db.Integer, db.ForeignKey("event.id"))
 
     def __repr__(self):
         return f"Comment: {self.text}"
@@ -62,12 +62,12 @@ class Comment(db.Model):
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable = False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    event_id = db.Column(db.Integer, db.ForeignKey("event.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     quantity = db.Column(db.Integer)
     price = db.Column(db.Float)
     total_price = db.Column(db.Float)
     date_time = db.Column(db.DateTime, default=datetime.now)
 
     # relationship
-    event = db.relationship('Event', backref='orders')
+    event = db.relationship("Event", backref="orders")

@@ -35,7 +35,13 @@ a:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 2px 2px 5px #ecc6e7 inset;
 }
 
-.btn-custom:hover {
+.btn-cancel {
+    background-color: #d77d7d;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 2px 2px 5px #e89393 inset;
+}
+
+.btn-custom:hover,
+.btn-cancel:hover {
     border-color: #9c4a91;
 }
 
