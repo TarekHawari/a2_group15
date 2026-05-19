@@ -12,8 +12,14 @@ from wtforms.fields import (
     DateField,
     IntegerField,
 )
-from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange
+from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, ValidationError
 from flask_wtf.file import FileRequired, FileField, FileAllowed
+from datetime import datetime, date
+
+
+def date_in_future(form, field):
+    if field.data < date.today():
+        raise ValidationError("The date must not be in the past")
 
 
 class LoginForm(FlaskForm):
@@ -157,6 +163,7 @@ class EventForm(FlaskForm):
         format="%Y-%m-%d",
         validators=[
             InputRequired(),
+            date_in_future,
         ],
     )
     general_admission_price = FloatField(
