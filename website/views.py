@@ -4,6 +4,8 @@ from . import db
 from .models import Event
 from .icons import icons
 
+from flask_login import current_user
+
 main_bp = Blueprint("main", __name__)
 
 

@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 login_manager = LoginManager()
 
+
 # create a function that creates a web application
 # a web server will run this web application
 def create_app():
@@ -28,7 +29,6 @@ def create_app():
     # set the name of the login function that lets user login
     login_manager.login_view = "user.login"
     login_manager.init_app(app)
-
 
     from . import views
 

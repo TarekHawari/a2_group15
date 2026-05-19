@@ -7,6 +7,15 @@ from . import db
 bookingbp = Blueprint("booking", __name__, url_prefix="/bookings")
 
 
+def update_db_number_of_tickets(id, quantity):
+    event = db.session.scalar(db.select(Event).where(Event.id == id))
+    event.general_admission_available = event.general_admission_available - quantity
+    event.general_admission_available = 0 if event.general_admission_available < 0 else event.general_admission_available
+    if event.general_admission_available == 0:
+        event.status = "Sold Out"
+    db.session.commit()
+
+
 @bookingbp.route("/")
 def show():
     orders = Order.query.all()
@@ -23,4 +32,5 @@ def create(id):
     order = Order(event_id=id, quantity=quantity, price=price, total_price=price, user_id=current_user.id)
     db.session.add(order)
     db.session.commit()
+    update_db_number_of_tickets(id, quantity)
     return redirect(url_for("booking.show"))

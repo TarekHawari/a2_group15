@@ -19,6 +19,7 @@
       <p class="card-text">{{ event.short_description }}</p>
 
       <!-- Admin buttons, need to edit to only show if the user is the event creator -->
+      {% if admin == True %}
       <div class="text-center">
         <div class="btn btn-custom">
           <a href="{{ url_for('event.edit', id=event.id) }}">Edit Details</a>
@@ -27,6 +28,7 @@
           <a href="{{ url_for('event.cancel', id=event.id) }}">Cancel Event</a>
         </div>
       </div>
+      {% endif %}
 
     </div>
     <div class="card-footer">

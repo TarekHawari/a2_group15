@@ -10,6 +10,7 @@ import os
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures.file_storage import FileStorage
 from .forms import EventForm, BookingForm
+from flask_login import current_user, login_required
 
 import random
 import string
@@ -34,13 +35,21 @@ def check_upload_file(form):
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id == id))
     form = BookingForm()
+
     ga_available = 8 if event.general_admission_available >= 8 else event.general_admission_available
-    return render_template("events/show.html", event=event, icons=icons, form=form, ga_available=ga_available)
+
+    try:
+        admin = True if event.user_id == current_user.get_user_id() else False
+    except:
+        admin = False
+
+    return render_template("events/show.html", event=event, icons=icons, form=form, ga_available=ga_available, admin=admin)
     # cform = CommentForm()
     # return render_template("events/show.html", event=event, form=cform, icons=icons)
 
 
 @eventbp.route("/create", methods=["GET", "POST"])
+@login_required
 def create():
     form = EventForm()
     if form.validate_on_submit():
@@ -66,6 +75,7 @@ def create():
             general_admission_price=form.general_admission_price.data,
             general_admission_available=form.general_admission_available.data,
             status="Open",
+            user_id=current_user.get_user_id(),
         )
         db.session.add(event)
         db.session.commit()
@@ -74,40 +84,54 @@ def create():
 
 
 @eventbp.route("/edit/<id>", methods=["GET", "POST"])
+@login_required
 def edit(id):
-    event = db.session.scalar(db.select(Event).where(Event.id == id))
-    form = EventForm(obj=event)
-    form.genre.default = event.genre
-    form.acknowledgement.default = event.acknowledgement
-    if form.validate_on_submit():
-        # if a new image has been uploaded, process it, else leave event.image untouched
-        if isinstance(form.image.data, FileStorage):
-            db_file_path = check_upload_file(form)
-            event.image = db_file_path
+    try:
+        event = db.session.scalar(db.select(Event).where(Event.id == id))
+        if event.user_id == current_user.get_user_id():
+            form = EventForm(obj=event)
+            form.genre.default = event.genre
+            form.acknowledgement.default = event.acknowledgement
+            if form.validate_on_submit():
+                # if a new image has been uploaded, process it, else leave event.image untouched
+                if isinstance(form.image.data, FileStorage):
+                    db_file_path = check_upload_file(form)
+                    event.image = db_file_path
 
-        event.artist = form.artist.data
-        event.genre = form.genre.data
-        event.acknowledgement = form.acknowledgement.data
-        event.short_description = form.short_description.data
-        event.long_description = form.long_description.data
-        # event.image = db_file_path
-        event.venue_name = form.venue_name.data
-        event.venue_city = form.venue_city.data
-        event.venue_state = form.venue_state.data
-        event.start_time = form.start_time.data
-        event.end_time = form.end_time.data
-        event.date = form.date.data
-        event.general_admission_price = form.general_admission_price.data
-        event.general_admission_available = form.general_admission_available.data
+                event.artist = form.artist.data
+                event.genre = form.genre.data
+                event.acknowledgement = form.acknowledgement.data
+                event.short_description = form.short_description.data
+                event.long_description = form.long_description.data
+                # event.image = db_file_path
+                event.venue_name = form.venue_name.data
+                event.venue_city = form.venue_city.data
+                event.venue_state = form.venue_state.data
+                event.start_time = form.start_time.data
+                event.end_time = form.end_time.data
+                event.date = form.date.data
+                event.general_admission_price = form.general_admission_price.data
+                event.general_admission_available = form.general_admission_available.data
 
-        db.session.commit()
+                db.session.commit()
+                return redirect(url_for("event.show", id=event.id))
+            return render_template("events/edit.html", form=form)
+        else:
+            raise Exception("User is not event owner")
+    except:
         return redirect(url_for("event.show", id=event.id))
-    return render_template("events/edit.html", form=form)
 
 
 @eventbp.route("/cancel/<id>")
+@login_required
 def cancel(id):
-    event = db.session.scalar(db.select(Event).where(Event.id == id))
-    event.status = "Cancelled"
-    db.session.commit()
-    return redirect(url_for("event.show", id=event.id))
+    try:
+        event = db.session.scalar(db.select(Event).where(Event.id == id))
+        if event.user_id == current_user.get_user_id():
+            event.status = "Cancelled"
+            db.session.commit()
+            return redirect(url_for("event.show", id=event.id))
+        else:
+            raise Exception("User is not event owner")
+    except:
+        return redirect(url_for("event.show", id=event.id))
