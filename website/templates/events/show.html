@@ -24,9 +24,11 @@
         <div class="btn btn-custom">
           <a href="{{ url_for('event.edit', id=event.id) }}">Edit Details</a>
         </div>
+        {% if event.status != "Cancelled" %}
         <div class="btn btn-cancel">
           <a href="{{ url_for('event.cancel', id=event.id) }}">Cancel Event</a>
         </div>
+        {% endif %}
       </div>
       {% endif %}
 
