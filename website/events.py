@@ -84,7 +84,7 @@ def create():
             general_admission_price=form.general_admission_price.data,
             general_admission_available=form.general_admission_available.data,
             status="Open",
-            user_id=current_user.get_user_id(),
+            user_id=current_user.id,
         )
         db.session.add(event)
         db.session.commit()
