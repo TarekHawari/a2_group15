@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from .models import Event
 from .forms import EventForm
 from .icons import icons
@@ -38,7 +38,7 @@ def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id == id))
     form = BookingForm()
 
-    # check if events date is in the past
+    # update if events date is in the past
     if event.date < date.today():
         event.status = "Inactive"
         db.session.commit()
@@ -48,7 +48,7 @@ def show(id):
 
     # check if user is admin
     try:
-        admin = True if event.user_id == current_user.get_user_id() else False
+        admin = True if event.user_id == current_user.id else False
     except:
         admin = False
 
@@ -122,10 +122,14 @@ def edit(id):
                 event.general_admission_price = form.general_admission_price.data
                 event.general_admission_available = form.general_admission_available.data
 
+                if event.status == "Sold Out" and form.general_admission_available.data > 0:
+                    event.status = "Open"
+
                 db.session.commit()
                 return redirect(url_for("event.show", id=event.id))
             return render_template("events/edit.html", form=form)
         else:
+            flash("You must be the event owner to edit an event")
             raise Exception("User is not event owner")
     except:
         return redirect(url_for("event.show", id=event.id))
@@ -141,6 +145,7 @@ def cancel(id):
             db.session.commit()
             return redirect(url_for("event.show", id=event.id))
         else:
+            flash("You must be the event owner to cancel an event")
             raise Exception("User is not event owner")
     except:
         return redirect(url_for("event.show", id=event.id))
