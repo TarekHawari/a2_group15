@@ -5,6 +5,7 @@ from .models import Event
 from .icons import icons
 
 from flask_login import current_user
+from sqlalchemy import select, desc
 
 main_bp = Blueprint("main", __name__)
 
@@ -16,11 +17,22 @@ def index():
     page = request.args.get("p")
     genre = request.args.get("genre")
 
-    if genre in icons:
-        # events = Event.query.filter(Event.genre == genre).all()
-        events = db.session.execute(db.select(Event).filter_by(genre=genre)).scalars()
-    else:
-        # events = Event.query.all()
-        events = db.session.execute(db.select(Event)).scalars()
+    carousels_statement = select(Event).where(Event.status == "Open").order_by(desc("general_admission_available")).limit(3)
+    carousels = db.session.scalars(carousels_statement).all()
+    carousels_length = len(carousels)
 
-    return render_template("index.html", events=events, icons=icons, selected_genre=genre)
+    events_statement = select(Event)
+    if genre in icons:
+        events_statement = events_statement.where(Event.genre == genre)
+    events = db.session.scalars(events_statement).all()
+    events_length = len(events)
+
+    return render_template(
+        "index.html",
+        events=events,
+        icons=icons,
+        selected_genre=genre,
+        carousels=carousels,
+        carousels_length=carousels_length,
+        events_length=events_length,
+    )
