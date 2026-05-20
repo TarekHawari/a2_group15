@@ -30,6 +30,12 @@ a:hover {
     border: none !important;
 }
 
+.card-img {
+    /* object-fit: contain; */
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+}
+
 .btn-custom {
     background-color: #debad9;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 2px 2px 5px #ecc6e7 inset;

@@ -18,8 +18,8 @@
 
                 <div class="carousel-item active">
                     <a href="{{ url_for('event.show', id=2) }}">
-                        <img src="{{ url_for('static', filename='img/VerticalFlames.jpg') }}" class="d-block w-100"
-                            alt="Vibrant Concert Scene with Crowd and Fire Effects">
+                        <img src="{{ url_for('static', filename='img/VerticalFlames.jpg') }}"
+                            class="d-block w-100 card-img" alt="Vibrant Concert Scene with Crowd and Fire Effects">
                         <div class="carousel-caption">
                             <h5 class="d-block">Vertical Flames</h5>
                             <p class="d-none d-md-block">Playing at The Tivoli, Brisbane on 16/7/2026</p>
@@ -29,8 +29,8 @@
 
                 <div class="carousel-item">
                     <a href="{{ url_for('event.show', id=2) }}">
-                        <img src="{{ url_for('static', filename='img/PastelBlooms.jpg') }}" class="d-block w-100"
-                            alt="Crowd watching on a Live Concert">
+                        <img src="{{ url_for('static', filename='img/PastelBlooms.jpg') }}"
+                            class="d-block w-100 card-img" alt="Crowd watching on a Live Concert">
                         <div class="carousel-caption">
                             <h5 class="d-block">Pastel Blooms</h5>
                             <p class="d-none d-md-block">Playing at The Triffid, Brisbane on 2/9/2026</p>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="carousel-item">
                     <a href="{{ url_for('event.show', id=2) }}">
-                        <img src="{{ url_for('static', filename='img/SunCircle.jpg') }}" class="d-block w-100"
+                        <img src="{{ url_for('static', filename='img/SunCircle.jpg') }}" class="d-block w-100 card-img"
                             alt="Crowd and Illuminated Stage at Concert">
                         <div class="carousel-caption">
                             <h5 class="d-block">Sun Circle</h5>
@@ -107,7 +107,7 @@
         <div class="col-sm-12 col-lg-6 col-xl-4 my-2">
             <div class="card card-custom h-100">
                 <a href="{{ url_for('event.show', id=event.id) }}">
-                    <img src="{{ event.image }}" class="card-img-top" alt="{{ event.artist }}">
+                    <img src="{{ event.image }}" class="card-img" alt="{{ event.artist }}">
                 </a>
 
                 <div class="card-body">
