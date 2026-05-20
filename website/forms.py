@@ -14,7 +14,7 @@ from wtforms.fields import (
 )
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, ValidationError
 from flask_wtf.file import FileRequired, FileField, FileAllowed
-from datetime import datetime, date
+from datetime import date
 
 
 def date_in_future(form, field):

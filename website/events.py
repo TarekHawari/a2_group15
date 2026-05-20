@@ -11,6 +11,8 @@ from werkzeug.utils import secure_filename
 from werkzeug.datastructures.file_storage import FileStorage
 from .forms import EventForm, BookingForm
 from flask_login import current_user, login_required
+from datetime import date
+
 
 import random
 import string
@@ -36,8 +38,15 @@ def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id == id))
     form = BookingForm()
 
+    # check if events date is in the past
+    if event.date < date.today():
+        event.status = "Inactive"
+        db.session.commit()
+
+    # display up to 8 tickets or however many are available
     ga_available = 8 if event.general_admission_available >= 8 else event.general_admission_available
 
+    # check if user is admin
     try:
         admin = True if event.user_id == current_user.get_user_id() else False
     except:
@@ -88,7 +97,7 @@ def create():
 def edit(id):
     try:
         event = db.session.scalar(db.select(Event).where(Event.id == id))
-        if event.user_id == current_user.get_user_id():
+        if event.user_id == current_user.id:
             form = EventForm(obj=event)
             form.genre.default = event.genre
             form.acknowledgement.default = event.acknowledgement
@@ -127,7 +136,7 @@ def edit(id):
 def cancel(id):
     try:
         event = db.session.scalar(db.select(Event).where(Event.id == id))
-        if event.user_id == current_user.get_user_id():
+        if event.user_id == current_user.id:
             event.status = "Cancelled"
             db.session.commit()
             return redirect(url_for("event.show", id=event.id))
