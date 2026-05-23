@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request
 from . import db
 from .models import Event
 from .icons import icons
+from datetime import date
 
 from flask_login import current_user
 from sqlalchemy import select, desc
@@ -24,8 +25,15 @@ def index():
     events_statement = select(Event)
     if genre in icons:
         events_statement = events_statement.where(Event.genre == genre)
+
     events = db.session.scalars(events_statement).all()
     events_length = len(events)
+
+    # update if events date is in the past
+    for event in events:
+        if event.date < date.today():
+            event.status = "Inactive"
+            db.session.commit()
 
     return render_template(
         "index.html",
