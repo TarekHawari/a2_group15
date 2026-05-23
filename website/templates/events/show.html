@@ -121,7 +121,11 @@
 
           </p>
           <p class="my-0">
-            {{comment.text}}
+            {% for paragraph in comment.text.splitlines() %}
+
+          <p>{{ paragraph }}</p>
+
+          {% endfor %}
           </p>
         </div>
 
