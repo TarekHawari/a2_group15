@@ -41,14 +41,14 @@ class Event(db.Model):
 
     # relation to call event.comments and comment.event
     # comments = db.relationship("Comment", backref="event")
-    users = db.relationship("User", backref="event")
+    user = db.relationship("User", backref="event")
 
     def __repr__(self):
         return f"Artist: {self.artist}, Venue: {self.venue_name}"
 
 
 class Comment(db.Model):
-    __tablename__ = "comments"
+    __tablename__ = "comment"
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(400))
     date_create = db.Column(db.DateTime, default=datetime.now)
@@ -61,6 +61,7 @@ class Comment(db.Model):
 
 
 class Order(db.Model):
+    __tablename__ = "order"
     id = db.Column(db.Integer, primary_key=True)
     event_id = db.Column(db.Integer, db.ForeignKey("event.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
@@ -69,5 +70,6 @@ class Order(db.Model):
     total_price = db.Column(db.Float)
     date_time = db.Column(db.DateTime, default=datetime.now)
 
-    # relationship
-    event = db.relationship("Event", backref="orders")
+    # relationships
+    event = db.relationship("Event", backref="order")
+    user = db.relationship("User", backref="order")

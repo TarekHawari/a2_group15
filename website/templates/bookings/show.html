@@ -3,7 +3,10 @@
 <div class="container">
   <h1 class="text-center">Bookings</h1>
 
-  {% for order in orders%}
+  {% if orders != None %}
+
+  {% for order in orders %}
+
   <div class="card card-custom col-12 my-2">
     <div class="card-body">
       <h5 class="card-title">{{order.event.artist}}</h5>
@@ -17,7 +20,16 @@
       <p>Booking ID: {{order.id}}</p>
     </div>
   </div>
+
   {% endfor %}
+
+  {% else %}
+
+  <p>
+  <h5 class="text-center py-3">No bookings found, please make a booking!</h5>
+  </p>
+
+  {% endif %}
 </div>
 
 {% endblock %}

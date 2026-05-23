@@ -17,8 +17,11 @@ def update_db_number_of_tickets(id, quantity):
 
 
 @bookingbp.route("/")
+@login_required
 def show():
-    orders = Order.query.all()
+    orders = db.session.scalars(db.select(Order).where(Order.user_id == current_user.id)).all()
+    print(orders)
+    print(type(orders))
     form = BookingForm()
     return render_template("bookings/show.html", orders=orders, form=form)
 
