@@ -53,9 +53,20 @@ def show(id):
     except:
         admin = False
 
-    return render_template("events/show.html", event=event, icons=icons, form=form, comment_form=comment_form, ga_available=ga_available, admin=admin)
-    # cform = CommentForm()
-    # return render_template("events/show.html", event=event, form=cform, icons=icons)
+    # get number of comments
+    comments = db.session.scalars(db.select(Comment).where(Event.id == id)).all()
+    comments_length = len(comments)
+
+    return render_template(
+        "events/show.html",
+        event=event,
+        icons=icons,
+        form=form,
+        comment_form=comment_form,
+        ga_available=ga_available,
+        admin=admin,
+        comments_length=comments_length,
+    )
 
 
 @eventbp.route("/create", methods=["GET", "POST"])
@@ -151,14 +162,14 @@ def cancel(id):
     except:
         return redirect(url_for("event.show", id=event.id))
 
+
 @eventbp.route("/<id>/comment", methods=["GET", "POST"])
 def comment(id):
     form = CommentForm()
     # get the destination object associated to the page and the comment
-    event = db.session.scalar(db.select(Event).where(Event.id == id))
     if form.validate_on_submit():
         # read the comment from the form
-        comment = Comment(text=form.text.data, event=event)
+        comment = Comment(text=form.text.data, event_id=id, user_id=current_user.id)
         # here the back-referencing works - comment.destination is set
         # and the link is created
         db.session.add(comment)

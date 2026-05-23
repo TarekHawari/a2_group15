@@ -97,38 +97,53 @@
     </div>
   </div>
 
-    <!-- comments -->
-    <div class="card card-custom col-12 my-2">
-        <div class="card-body">
-            <h1 class="text-center">Comments</h1>
-            {{ render_form(comment_form,"/events/{0}/comment".format(event.id) )}}
-            {%for comment in event.comments%}
-            <div>
-                <hr>
-                <p class="my-0">
-                    {{comment.date_post}}
-                </p>
-                <p class="my-0">
+  <!-- comments -->
+  <div class="card card-custom col-12 my-2">
+    <div class="card-body">
+      <h1 class="text-center">Comments</h1>
 
-                </p>
-                <p class="my-0">
-                    {{comment.text}}
-                </p>
-            </div>
-            {%endfor%}
-            <p class = "text-center"> No comment yet</p>
+      {% if comments_length < 1 %} <p>
+        <h5>No comments yet, be the first to post!</h5>
+        </p>
+
+        {% else %}
+
+        {% for comment in event.comments %}
 
         <div>
-            <hr>
+          <p class="my-0">
+            {{comment.user.name}}
+          </p>
+          <p class="my-0">
+            {{comment.date_create}}
+          </p>
+          <p class="my-0">
+
+          </p>
+          <p class="my-0">
+            {{comment.text}}
+          </p>
+        </div>
+
+        <hr>
+
+        {%endfor%}
+
+        {% endif %}
 
         <!-- comment form -->
-        <form action="{{ url_for('event.show', id=2) }}">
-          <h4>Write a comment:</h4>
-          <textarea class="form-control mb-2" name="comment" rows="6" style="width: 100%"
-            placeholder="Enter text here"></textarea>
-          <input class="form-control" type="submit" class="mt-2 btn btn-custom" value="Post Comment" />
-        </form>
-      </div>
+        {{ render_form(comment_form,"/events/{0}/comment".format(event.id)) }}
+
+        <!-- old comment form (has styling on it)-->
+        <!-- <div>
+          <form action="{{ url_for('event.show', id=2) }}">
+            <h4>Write a comment:</h4>
+            <textarea class="form-control mb-2" name="comment" rows="6" style="width: 100%"
+              placeholder="Enter text here"></textarea>
+            <input class="form-control" type="submit" class="mt-2 btn btn-custom" value="Post Comment" />
+          </form>
+        </div> -->
+
     </div>
   </div>
 </div>

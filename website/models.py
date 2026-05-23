@@ -39,7 +39,7 @@ class Event(db.Model):
     general_admission_available = db.Column(db.Integer)
     status = db.Column(db.String(16))
 
-    # relation to call event.comments and comment.event
+    # relationships
     comments = db.relationship("Comment", backref="event")
     user = db.relationship("User", backref="event")
 
@@ -48,13 +48,16 @@ class Event(db.Model):
 
 
 class Comment(db.Model):
-    __tablename__ = 'comment'
+    __tablename__ = "comment"
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(400))
     date_create = db.Column(db.DateTime, default=datetime.now)
 
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     event_id = db.Column(db.Integer, db.ForeignKey("event.id"))
+
+    # relationships
+    user = db.relationship("User", backref="comment")
 
     def __repr__(self):
         return f"Comment: {self.text}"

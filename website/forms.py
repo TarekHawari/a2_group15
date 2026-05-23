@@ -37,10 +37,10 @@ class RegisterForm(FlaskForm):
 
 
 class CommentForm(FlaskForm):
-    text = TextAreaField("Comment", [InputRequired()])
+    text = TextAreaField("Write a comment", [InputRequired()])
 
     # submit button
-    submit = SubmitField("Create")
+    submit = SubmitField("Post Comment")
 
 
 class EventForm(FlaskForm):
