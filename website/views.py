@@ -21,7 +21,7 @@ def index():
         flash("Invalid genre")
         return redirect(url_for("main.index", p=page))
 
-    per_page = 1
+    per_page = 6
 
     # carousel query
     carousels_statement = select(Event).where(Event.status == "Open").order_by(desc("general_admission_available")).limit(3)
@@ -90,5 +90,4 @@ def index():
         page=page,
         next_page=next_page,
         second_next_page=second_next_page,
-        genre=genre,
     )

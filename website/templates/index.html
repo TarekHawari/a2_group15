@@ -180,39 +180,39 @@
                         {% if page > 1 %}
                         <li class="page-item page-item-custom">
                             <a class="page-link page-item-custom"
-                                href="{{ url_for('main.index', p=page-1, genre=genre) }}">Previous</a>
+                                href="{{ url_for('main.index', p=page-1, genre=selected_genre) }}">Previous</a>
                         </li>
                         {% if page > 2 and next_page == False %}
                         <li class="page-item page-item-custom"><a class="page-link"
-                                href="{{ url_for('main.index', p=page-2, genre=genre) }}">{{
+                                href="{{ url_for('main.index', p=page-2, genre=selected_genre) }}">{{
                                 page-2 }}</a>
                         </li>
                         {% endif %}
                         <li class="page-item page-item-custom"><a class="page-link"
-                                href="{{ url_for('main.index', p=page-1, genre=genre) }}">{{ page-1 }}</a>
+                                href="{{ url_for('main.index', p=page-1, genre=selected_genre) }}">{{ page-1 }}</a>
                         </li>
                         {% endif %}
 
                         <!-- current page -->
                         <li class="page-item disabled page-item-custom page-item-active "><a class="page-link"
-                                href="{{ url_for('main.index', p=page, genre=genre) }}" tabindex="-1"
+                                href="{{ url_for('main.index', p=page, genre=selected_genre) }}" tabindex="-1"
                                 aria-disabled="true">{{ page }}</a>
                         </li>
 
                         <!-- next page active -->
                         {% if next_page == True %}
                         <li class="page-item page-item-custom"><a class="page-link"
-                                href="{{ url_for('main.index', p=page+1, genre=genre) }}">{{ page+1 }}</a>
+                                href="{{ url_for('main.index', p=page+1, genre=selected_genre) }}">{{ page+1 }}</a>
                         </li>
                         {% if second_next_page == True %}
                         <li class="page-item page-item-custom"><a class="page-link"
-                                href="{{ url_for('main.index', p=page+2, genre=genre) }}">{{
+                                href="{{ url_for('main.index', p=page+2, genre=selected_genre) }}">{{
                                 page+2 }}</a>
                         </li>
                         {% endif %}
                         <li class="page-item page-item-custom">
                             <a class="page-link page-item-custom"
-                                href="{{ url_for('main.index', p=page+1, genre=genre) }}">Next</a>
+                                href="{{ url_for('main.index', p=page+1, genre=selected_genre) }}">Next</a>
                         </li>
                         {% else %}
                         <!-- next page disabled -->
