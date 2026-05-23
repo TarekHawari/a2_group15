@@ -53,10 +53,6 @@ def show(id):
     except:
         admin = False
 
-    # get number of comments
-    comments = db.session.scalars(db.select(Comment).where(Event.id == id)).all()
-    comments_length = len(comments)
-
     return render_template(
         "events/show.html",
         event=event,
@@ -65,7 +61,6 @@ def show(id):
         comment_form=comment_form,
         ga_available=ga_available,
         admin=admin,
-        comments_length=comments_length,
     )
 
 
