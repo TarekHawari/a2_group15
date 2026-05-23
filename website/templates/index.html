@@ -168,22 +168,60 @@
         <div>
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-end my-2">
-                    <li class="page-item disabled">
+
+                    <!-- previous page disabled -->
+                    {% if page <= 1 %} <li class="page-item disabled">
                         <a class="page-link" href="{{ url_for('main.index') }}" tabindex="-1"
                             aria-disabled="true">Previous</a>
-                    </li>
-                    <li class="page-item page-item-custom"><a class="page-link"
-                            href="{{ url_for('main.index', p=1) }}">1</a>
-                    </li>
-                    <li class="page-item page-item-custom"><a class="page-link"
-                            href="{{ url_for('main.index', p=2) }}">2</a>
-                    </li>
-                    <li class="page-item page-item-custom"><a class="page-link"
-                            href="{{ url_for('main.index', p=3) }}">3</a>
-                    </li>
-                    <li class="page-item page-item-custom">
-                        <a class="page-link page-item-custom" href="{{ url_for('main.index', p=2) }}">Next</a>
-                    </li>
+                        </li>
+                        {% endif %}
+
+                        <!-- previous page active -->
+                        {% if page > 1 %}
+                        <li class="page-item page-item-custom">
+                            <a class="page-link page-item-custom"
+                                href="{{ url_for('main.index', p=page-1, genre=genre) }}">Previous</a>
+                        </li>
+                        {% if page > 2 and next_page == False %}
+                        <li class="page-item page-item-custom"><a class="page-link"
+                                href="{{ url_for('main.index', p=page-2, genre=genre) }}">{{
+                                page-2 }}</a>
+                        </li>
+                        {% endif %}
+                        <li class="page-item page-item-custom"><a class="page-link"
+                                href="{{ url_for('main.index', p=page-1, genre=genre) }}">{{ page-1 }}</a>
+                        </li>
+                        {% endif %}
+
+                        <!-- current page -->
+                        <li class="page-item disabled page-item-custom page-item-active "><a class="page-link"
+                                href="{{ url_for('main.index', p=page, genre=genre) }}" tabindex="-1"
+                                aria-disabled="true">{{ page }}</a>
+                        </li>
+
+                        <!-- next page active -->
+                        {% if next_page == True %}
+                        <li class="page-item page-item-custom"><a class="page-link"
+                                href="{{ url_for('main.index', p=page+1, genre=genre) }}">{{ page+1 }}</a>
+                        </li>
+                        {% if second_next_page == True %}
+                        <li class="page-item page-item-custom"><a class="page-link"
+                                href="{{ url_for('main.index', p=page+2, genre=genre) }}">{{
+                                page+2 }}</a>
+                        </li>
+                        {% endif %}
+                        <li class="page-item page-item-custom">
+                            <a class="page-link page-item-custom"
+                                href="{{ url_for('main.index', p=page+1, genre=genre) }}">Next</a>
+                        </li>
+                        {% else %}
+                        <!-- next page disabled -->
+                        <li class="page-item disabled">
+                            <a class="page-link" href="{{ url_for('main.index') }}" tabindex="-1"
+                                aria-disabled="true">Next</a>
+                        </li>
+                        {% endif %}
+
                 </ul>
             </nav>
         </div>

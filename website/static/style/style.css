@@ -25,6 +25,11 @@ a:hover {
     color: #212529 !important;
 }
 
+.page-item-active,
+.page-item-active a {
+    color: #9c4a91 !important;
+}
+
 .card-custom {
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
     border: none !important;
