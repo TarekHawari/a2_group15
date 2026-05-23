@@ -40,7 +40,7 @@ class Event(db.Model):
     status = db.Column(db.String(16))
 
     # relation to call event.comments and comment.event
-    # comments = db.relationship("Comment", backref="event")
+    comments = db.relationship("Comment", backref="event")
     user = db.relationship("User", backref="event")
 
     def __repr__(self):
@@ -48,7 +48,7 @@ class Event(db.Model):
 
 
 class Comment(db.Model):
-    __tablename__ = "comment"
+    __tablename__ = 'comment'
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(400))
     date_create = db.Column(db.DateTime, default=datetime.now)

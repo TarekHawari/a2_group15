@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from .models import Event
-from .forms import EventForm
+from .models import Event, Comment
+from .forms import EventForm, CommentForm
 from .icons import icons
 
 # from .models import Event, Comment
@@ -37,6 +37,7 @@ def check_upload_file(form):
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id == id))
     form = BookingForm()
+    comment_form = CommentForm()
 
     # update if events date is in the past
     if event.date < date.today():
@@ -52,7 +53,7 @@ def show(id):
     except:
         admin = False
 
-    return render_template("events/show.html", event=event, icons=icons, form=form, ga_available=ga_available, admin=admin)
+    return render_template("events/show.html", event=event, icons=icons, form=form, comment_form=comment_form, ga_available=ga_available, admin=admin)
     # cform = CommentForm()
     # return render_template("events/show.html", event=event, form=cform, icons=icons)
 
@@ -149,3 +150,22 @@ def cancel(id):
             raise Exception("User is not event owner")
     except:
         return redirect(url_for("event.show", id=event.id))
+
+@eventbp.route("/<id>/comment", methods=["GET", "POST"])
+def comment(id):
+    form = CommentForm()
+    # get the destination object associated to the page and the comment
+    event = db.session.scalar(db.select(Event).where(Event.id == id))
+    if form.validate_on_submit():
+        # read the comment from the form
+        comment = Comment(text=form.text.data, event=event)
+        # here the back-referencing works - comment.destination is set
+        # and the link is created
+        db.session.add(comment)
+        db.session.commit()
+
+        # flashing a message which needs to be handled by the html
+        # flash('Your comment has been added', 'success')
+        print("Your comment has been added", "success")
+    # using redirect sends a GET request to destination.show
+    return redirect(url_for("event.show", id=id))

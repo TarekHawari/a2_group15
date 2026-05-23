@@ -1,4 +1,7 @@
-{% extends 'base.html' %} {% from 'bootstrap5/form.html' import render_form %}
+{% extends 'base.html' %}
+
+{% from 'bootstrap5/form.html' import render_form %}
+
 {% block content %}
 
 <div class="container">
@@ -94,41 +97,29 @@
     </div>
   </div>
 
-  <!-- comments -->
-  <div class="card card-custom col-12 my-2">
-    <div class="card-body">
-      <h1 class="text-center">Comments</h1>
+    <!-- comments -->
+    <div class="card card-custom col-12 my-2">
+        <div class="card-body">
+            <h1 class="text-center">Comments</h1>
+            {{ render_form(comment_form,"/events/{0}/comment".format(event.id) )}}
+            {%for comment in event.comments%}
+            <div>
+                <hr>
+                <p class="my-0">
+                    {{comment.date_post}}
+                </p>
+                <p class="my-0">
 
-      <div>
-        <hr />
-        <p class="my-0">🗓️ 9/4/2026</p>
-        <p class="my-0">🙍‍♂️ John Smith</p>
-        <p class="my-0">My favourite band! Can't come soon enough!</p>
-      </div>
+                </p>
+                <p class="my-0">
+                    {{comment.text}}
+                </p>
+            </div>
+            {%endfor%}
+            <p class = "text-center"> No comment yet</p>
 
-      <div>
-        <hr />
-        <p class="my-0">🗓️ 9/4/2026</p>
-        <p class="my-0">🙍‍♀️ Jane Doe</p>
-        <p class="my-0">
-          This is sure to be a show that will not be forgotten, from their
-          pyrotechnics to the greatest of sound engineering they always put on a
-          good show.
-        </p>
-      </div>
-
-      <div>
-        <hr />
-        <p class="my-0">🗓️ 10/4/2026</p>
-        <p class="my-0">🙍‍♂️ Bob Rogers</p>
-        <p class="my-0">
-          Yes, finally! I missed them last time they toured and have been
-          waiting for them to come back ever since!
-        </p>
-      </div>
-
-      <div>
-        <hr />
+        <div>
+            <hr>
 
         <!-- comment form -->
         <form action="{{ url_for('event.show', id=2) }}">
