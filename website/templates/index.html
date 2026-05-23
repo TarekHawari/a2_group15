@@ -4,13 +4,13 @@
 <div class="container">
 
     <!-- carousel -->
-    {% if carousels_length > 0 %}
+    {% if carousels|length > 0 %}
     <div class="row">
         <div id="carouselCaptions" class="carousel slide my-2" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="0" class="active"
                     aria-current="true" aria-label="Slide 1"></button>
-                {% for i in range(1, carousels_length) %}
+                {% for i in range(1, carousels|length) %}
                 <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="{{ i }}"
                     aria-label="Slide {{ i + 1 }}"></button>
                 {% endfor %}
@@ -31,7 +31,7 @@
                     </a>
                 </div>
 
-                {% for i in range(1, carousels_length) %}
+                {% for i in range(1, carousels|length) %}
                 <div class="carousel-item">
                     <a href="{{ url_for('event.show', id=carousels[i].id) }}">
                         <img src="{{ carousels[i].image }}" class="d-block w-100 card-img"
@@ -102,7 +102,7 @@
     </div>
 
     <!-- event cards -->
-    {% if events_length > 0 %}
+    {% if events|length > 0 %}
     <div class="row">
 
         {% for event in events %}

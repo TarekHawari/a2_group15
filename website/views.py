@@ -26,16 +26,15 @@ def index():
     # carousel query
     carousels_statement = select(Event).where(Event.status == "Open").order_by(desc("general_admission_available")).limit(3)
     carousels = db.session.scalars(carousels_statement).all()
-    carousels_length = len(carousels)
 
-    # construct main db query
-    events_statement = select(Event).limit(per_page)
+    # begin constructing main db query
+    events_statement = select(Event)
 
     # add genre to query if there is one
     if genre is not None:
         events_statement = events_statement.where(Event.genre == genre)
 
-    # make sure page is an int > 0
+    # make sure page is an int > 0 if there is one
     if page is not None:
         try:
             page = int(page)
@@ -52,7 +51,6 @@ def index():
     # perform main db query
     current_page_events_statement = events_statement.limit(per_page)
     events = db.session.scalars(current_page_events_statement).all()
-    events_length = len(events)
 
     # check if page number was invalid
     if page is not None and page != 1 and len(events) == 0:
@@ -89,8 +87,6 @@ def index():
         icons=icons,
         selected_genre=genre,
         carousels=carousels,
-        carousels_length=carousels_length,
-        events_length=events_length,
         page=page,
         next_page=next_page,
         second_next_page=second_next_page,
