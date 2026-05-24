@@ -6,6 +6,7 @@ from wtforms.fields import (
     PasswordField,
     FileField,
     SelectField,
+    RadioField,
     DateTimeField,
     FloatField,
     TimeField,
@@ -96,7 +97,7 @@ class EventForm(FlaskForm):
             (Length(max=10)),
         ],
     )
-    acknowledgement = SelectField(
+    acknowledgement = RadioField(
         "Acknowledgement of Country",
         choices=acknowledgement_choices,
         validators=[InputRequired(), (Length(max=36))],

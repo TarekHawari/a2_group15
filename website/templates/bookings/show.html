@@ -16,7 +16,7 @@
       <p>Quantity: {{order.quantity}}</p>
       <p>Price: {{order.price}}</p>
       <p>Total: {{order.total_price}}</p>
-      <p>Booked: {{order.date_time}}</p>
+      <p>Booked: {{order.date_time.strftime("%d %B %Y, %I:%M %p")}}</p>
       <p>Booking ID: {{order.id}}</p>
     </div>
   </div>

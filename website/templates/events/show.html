@@ -83,6 +83,23 @@
     </div>
   </div>
 
+   <!-- acknowledgement-->
+   {% if event.acknowledgement != 'No Acknowledgement of Country' %}
+   <div class="card card-custom col-12 mt-2">
+     <div class="card-body">
+       <h1 class="text-center">Acknowledgement of Country</h1>
+       <hr>
+       {% if event.acknowledgement == 'Acknowledgement of Country: Generic' %}
+       <p>We acknowledge the Traditional Custodians of the land which this event takes place, and pay our respects to their Elders past, present and emerging.</p>
+       {% elif event.acknowledgement == 'Acknowledgement of Country: Enhanced' %}
+       <p>We acknowledge the {{custodians[event.venue_state]}}, the Tradisitonal Custodians of {{event.venue_city}}, {{event.venue_state}}, and pay our respects to their Elders past, present and emerging.
+         We celebrate their ongoing connection to land, sea and community.
+       </p>
+       {% endif %}
+     </div>
+   </div>
+   {% endif %}
+
   <!-- event details -->
   <div class="card card-custom col-12 mt-2">
     <div class="card-body">
@@ -96,6 +113,8 @@
 
     </div>
   </div>
+
+
 
   <!-- comments -->
   <div class="card card-custom col-12 my-2">
