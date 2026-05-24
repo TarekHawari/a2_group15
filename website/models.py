@@ -50,11 +50,13 @@ class Event(db.Model):
 class Comment(db.Model):
     __tablename__ = 'comment'
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(400))
+    text = db.Column(db.String(400), nullable=False)
     date_create  = db.Column(db.DateTime, default=datetime.now)
     
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
+
+    user = db.relationship('User', backref='comments')
 
     def __repr__(self):
         return f"Comment: {self.text}"
@@ -62,8 +64,8 @@ class Comment(db.Model):
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable = False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     quantity = db.Column(db.Integer)
     price = db.Column(db.Float)
     total_price = db.Column(db.Float)

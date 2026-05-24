@@ -65,8 +65,9 @@ def create():
 @eventbp.route("/<id>/comment", methods=["GET", "POST"])
 def comment(id):
     form = CommentForm()
-    # get the destination object associated to the page and the comment
+    # get the event object associated to the page and the comment
     event = db.session.scalar(db.select(Event).where(Event.id == id))
+
     if form.validate_on_submit():
         # read the comment from the form
         comment = Comment(text=form.text.data, event=event)
@@ -74,7 +75,7 @@ def comment(id):
         # and the link is created
         db.session.add(comment)
         db.session.commit()
-
+        
         # flashing a message which needs to be handled by the html
         # flash('Your comment has been added', 'success')
         print("Your comment has been added", "success")

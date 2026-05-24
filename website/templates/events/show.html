@@ -99,27 +99,33 @@
     <div class="card card-custom col-12 my-2">
         <div class="card-body">
             <h1 class="text-center">Comments</h1>
-            {{ render_form(comment_form,"/events/{0}/comment".format(event.id) )}}
-            {%for comment in event.comments%}
+            
+            {% if current_user.is_authenticated %}
+                {{ render_form(comment_form,"/events/{0}/comment".format(event.id) )}}
+            {%else%}
+                <p class="text-center">Please log in to comment</p>
+            {% endif %}
+
+            {% for comment in event.comments %}
             <div>
                 <hr>
                 <p class="my-0">
                     {{comment.date_post}}
                 </p>
                 <p class="my-0">
-
+                    {{comment.user.name}}
                 </p>
                 <p class="my-0">
                     {{comment.text}}
                 </p>
-            </div>
-            {%endfor%}
-            <p class = "text-center"> No comment yet</p>
-
-            <div>
                 <hr>
- 
+
             </div>
+            {%else%}
+            
+            <p class = "text-center"> No comment yet</p>
+            {%endfor%}
+            <div>
         </div>
     </div>
 </div>
