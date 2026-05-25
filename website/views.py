@@ -100,7 +100,18 @@ def search():
     if request.args['search'] and request.args['search'] != "":
         print(request.args['search'])
         query = "%" + request.args['search'] + "%"
-        events = db.session.scalars(db.select(Event).where(Event.artist.like(query) | Event.venue_name.like(query))).all()
-        return render_template("index.html", events=events)
+        events = db.session.scalars(
+            db.select(Event).where(
+                Event.artist.like(query) | Event.venue_name.like(query))).all()
+        return render_template(
+            "index.html", 
+            events=events, 
+            icons=icons, 
+            selected_genre=None,
+            carousels=[],
+            page=1,
+            next_page=False,
+            second_next_page=False,
+        )
     else:
         return redirect(url_for("main.index"))
