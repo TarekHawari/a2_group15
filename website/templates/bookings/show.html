@@ -6,20 +6,30 @@
   {% if orders != None %}
 
   {% for order in orders %}
-
-  <div class="card card-custom col-12 my-2">
-    <div class="card-body">
-      <h5 class="card-title">{{order.event.artist}}</h5>
+      <div class="booking-card">
+        <img src="{{ order.event.image_url }}" class="img-thumbnail" alt="Event image" style="max-width: 150px;">
+        <div class="flex-grow-1">
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-1 mb-1">
+                <h6 class="mb-0 fw-semibold">{{order.event.artist}}</h6>
+            </div>
+            <div class="mb-2">
+                <span class="booking-id"> User ID: #{{order.user_id}}</span>
+            </div>
+            <div class="mb-2">
+                <span class="booking-id">Booking ID: #{{order.id}}</span>
+            </div>
+            <div class="d-flex flex-wrap gap-3" style="font-size: small;">
+                <span><i class="bi bi-clock-history"></i>Booked: {{order.date_time.strftime("%d %B %Y, %I:%M %p")}}</span>
+                <span><i class="bi bi-ticket"></i>Quantity: {{order.quantity}}</span>
+            </div>
+            <div class="d-flex flex-wrap gap-3" style="font-size: small;">
+              <span><i class="bi bi-currency-dollar"></i>Price: {{order.price}}</span>
+              <span><i class="bi bi-currency-dollar"></i>Total: {{order.total_price}}</span>
+            </div>
+        </div>
+        <div class="d-flex flex-column gap-2 ms-auto flex-shrink-0">
+          <a class="btn btn-outline-primary btn-sm" href="{{ url_for('event.show', id=order.event.id) }}">View Details</a>        </div>
     </div>
-    <div class="card-footer">
-      <p>User ID: {{order.user_id}}</p>
-      <p>Quantity: {{order.quantity}}</p>
-      <p>Price: {{order.price}}</p>
-      <p>Total: {{order.total_price}}</p>
-      <p>Booked: {{order.date_time}}</p>
-      <p>Booking ID: {{order.id}}</p>
-    </div>
-  </div>
 
   {% endfor %}
 
