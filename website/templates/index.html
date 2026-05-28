@@ -5,13 +5,14 @@
 <div class="container">
     <div class="row justify-content-center mt-5 pb-4">
         <div class="col-md-8">
-            <h1 class="text-center mb-3">Search event</h1>
-            <form class="form-inline d-flex flex-nowrap" action="{{ url_for('main.search') }}">
-                <input class="form-control me-2" type="search" id="searchInput" placeholder="Event title" aria-label="Search"/>                
+            <h1 class="text-center mb-3">SEARCH</h1>
+            <form class="form-inline d-flex flex-nowrap" action="{{ url_for('main.search') }}" method="get">
+                <input class="form-control me-2" type="search" id="search" name="search" placeholder="Artist or venue name" aria-label="Search"/>
                 <button type="submit" class="flex-shrink-1 btn btn-primary my-1">Submit</button>
             </form>
         </div>
     </div>
+
     <!-- carousel -->
     {% if carousels|length > 0 %}
     <div class="row">

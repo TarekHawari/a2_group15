@@ -94,24 +94,21 @@ def index():
     )
 
 
-   
 @main_bp.route('/search')
 def search():
-    if request.args['search'] and request.args['search'] != "":
-        print(request.args['search'])
-        query = "%" + request.args['search'] + "%"
-        events = db.session.scalars(
-            db.select(Event).where(
-                Event.artist.like(query) | Event.venue_name.like(query))).all()
+    search = request.args.get('search')
+    if search and search != "":
+        print(search)
+        query = "%" + search + "%"
+        events = db.session.scalars(db.select(Event).where(Event.artist.like(query) | Event.venue_name.like(query))).all()
         return render_template(
-            "index.html", 
-            events=events, 
-            icons=icons, 
+            'index.html', 
+            events=events,
+            icons=icons,
             selected_genre=None,
             carousels=[],
             page=1,
             next_page=False,
-            second_next_page=False,
-        )
+            second_next_page=False)
     else:
-        return redirect(url_for("main.index"))
+        return redirect(url_for('main.index'))
