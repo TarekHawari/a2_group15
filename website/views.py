@@ -10,11 +10,12 @@ from sqlalchemy import select, desc
 
 main_bp = Blueprint("main", __name__)
 
-
+ 
 @main_bp.route("/")
 def index():
     # get the value of p and genre eg. http://127.0.0.1:5000/?genre=Electronic&p=2, genre = Electronic, page = 2
     # if page or genre is not specified, the value will be None
+    events = db.session.scalars(select(Event)).all()
     page = request.args.get("p")
     genre = request.args.get("genre")
     if genre is not None and genre not in icons:
@@ -91,3 +92,23 @@ def index():
         next_page=next_page,
         second_next_page=second_next_page,
     )
+
+
+@main_bp.route('/search')
+def search():
+    search = request.args.get('search')
+    if search and search != "":
+        print(search)
+        query = "%" + search + "%"
+        events = db.session.scalars(db.select(Event).where(Event.artist.like(query) | Event.venue_name.like(query))).all()
+        return render_template(
+            'index.html', 
+            events=events,
+            icons=icons,
+            selected_genre=None,
+            carousels=[],
+            page=1,
+            next_page=False,
+            second_next_page=False)
+    else:
+        return redirect(url_for('main.index'))

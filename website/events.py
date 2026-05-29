@@ -53,6 +53,17 @@ def show(id):
     except:
         admin = False
 
+    custodians = {
+        "QLD": "Turrabal and Jagera peoples",
+        "NSW": "Gadigal people of the Eora Nation",
+        "VIC": "Wurundjeri people of the Kulin Nation",
+        "ACT": "Ngunnawal people",
+        "SA": "Kaurna people",
+        "WA": "Whadjuk Noongar people",
+        "TAS": "Palawa people",
+        "NT": "Larrakia people",
+    }
+
     return render_template(
         "events/show.html",
         event=event,
@@ -61,6 +72,7 @@ def show(id):
         comment_form=comment_form,
         ga_available=ga_available,
         admin=admin,
+        custodians=custodians,
     )
 
 
@@ -159,6 +171,7 @@ def cancel(id):
 
 
 @eventbp.route("/<id>/comment", methods=["GET", "POST"])
+@login_required
 def comment(id):
     form = CommentForm()
     # get the destination object associated to the page and the comment

@@ -83,6 +83,23 @@
     </div>
   </div>
 
+   <!-- acknowledgement-->
+   {% if event.acknowledgement != 'No Acknowledgement of Country' %}
+   <div class="card card-custom col-12 mt-2">
+     <div class="card-body">
+       <h1 class="text-center">Acknowledgement of Country</h1>
+       <hr>
+       {% if event.acknowledgement == 'Acknowledgement of Country: Generic' %}
+       <p>We acknowledge the Traditional Custodians of the land which this event takes place, and pay our respects to their Elders past, present and emerging.</p>
+       {% elif event.acknowledgement == 'Acknowledgement of Country: Enhanced' %}
+       <p>We acknowledge the {{custodians[event.venue_state]}}, the Tradisitonal Custodians of {{event.venue_city}}, {{event.venue_state}}, and pay our respects to their Elders past, present and emerging.
+         We celebrate their ongoing connection to land, sea and community.
+       </p>
+       {% endif %}
+     </div>
+   </div>
+   {% endif %}
+
   <!-- event details -->
   <div class="card card-custom col-12 mt-2">
     <div class="card-body">
@@ -97,36 +114,32 @@
     </div>
   </div>
 
+
+
   <!-- comments -->
   <div class="card card-custom col-12 my-2">
     <div class="card-body">
       <h1 class="text-center">Comments</h1>
 
-      {% if event.comments|length < 1 %} <p>
+      {% if event.comments|length < 1 %} 
+        <p>
         <h5>No comments yet, be the first to post!</h5>
         </p>
+      {% else %}
 
-        {% else %}
-
-        {% for comment in event.comments %}
+      {% for comment in event.comments %}
 
         <div>
-          <p class="my-0">
+          <p class="my-0 fw-bold">
             {{comment.user.name}}
           </p>
-          <p class="my-0">
-            {{comment.date_create}}
+          <p class="my-0 text-muted small">
+            {{comment.date_create.strftime("%B %d, %Y at %I:%M %p")}}
           </p>
-          <p class="my-0">
-
-          </p>
-          <p class="my-0">
+          <p class="my-2">
             {% for paragraph in comment.text.splitlines() %}
-
           <p>{{ paragraph }}</p>
-
-          {% endfor %}
-          </p>
+          {% endfor %}          
         </div>
 
         <hr>
@@ -137,8 +150,7 @@
 
         <!-- comment form -->
         {{ render_form(comment_form,"/events/{0}/comment".format(event.id)) }}
-
-        <!-- old comment form (has styling on it)-->
+          <!-- old comment form (has styling on it)-->
         <!-- <div>
           <form action="{{ url_for('event.show', id=2) }}">
             <h4>Write a comment:</h4>
