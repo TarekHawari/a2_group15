@@ -11,15 +11,24 @@
                         <form action="" method="POST" novalidate>
                             {{ form.hidden_tag() }}
     
-                            <!-- username -->
+                            <!-- first name -->
                             <div class="mb-3">
-                                {{ form.username.label(class="form-label") }}
-                                {{ form.username(class="form-control", placeholder="Enter your username") }}
-                                {% if form.username.errors %}
-                                    {% for error in form.username.errors %}
+                                {{ form.firstName.label(class="form-label") }}
+                                {{ form.firstName(class="form-control", placeholder="Enter your first name") }}
+                                {% if form.firstName.errors %}
+                                    {% for error in form.firstName.errors %}
                                         <div class="text-danger small">{{ error }}</div>
                                     {% endfor %}
                                 {% endif %}
+                            </div>
+                            
+                            <!-- surname -->
+                            <div class="mb-3">
+                                {{ form.surname.label(class="form-label") }}
+                                {{ form.surname(class="form-control", placeholder="Enter your surname") }}
+                                {% for error in form.surname.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
                             </div>
                             
                             <!-- email -->
@@ -27,6 +36,24 @@
                                 {{ form.email.label(class="form-label") }}
                                 {{ form.email(class="form-control", placeholder="Enter your email") }}
                                 {% for error in form.email.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- contact number -->
+                            <div class="mb-3">
+                                {{ form.contactNumber.label(class="form-label") }}
+                                {{ form.contactNumber(class="form-control", placeholder="Enter your contact number") }}
+                                {% for error in form.contactNumber.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- street address -->
+                            <div class="mb-3">
+                                {{ form.streetAddress.label(class="form-label") }}
+                                {{ form.streetAddress(class="form-control", placeholder="Enter your street address") }}
+                                {% for error in form.streetAddress.errors %}
                                     <div class="text-danger small">{{ error }}</div>
                                 {% endfor %}
                             </div>

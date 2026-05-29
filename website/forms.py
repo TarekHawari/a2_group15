@@ -11,6 +11,7 @@ from wtforms.fields import (
     TimeField,
     DateField,
     IntegerField,
+    TelField
 )
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, ValidationError
 from flask_wtf.file import FileRequired, FileField, FileAllowed
@@ -23,14 +24,17 @@ def date_in_future(form, field):
 
 
 class LoginForm(FlaskForm):
-    username = StringField("Username", validators=[InputRequired("Enter user name")])
+    email = StringField("email", validators=[InputRequired("Enter user email"), Email("Please enter a valid email")])
     password = PasswordField("Password", validators=[InputRequired("Enter user password")])
     submit = SubmitField("Login")
 
 
 class RegisterForm(FlaskForm):
-    username = StringField("Username", validators=[InputRequired()])
+    firstName = StringField("First Name", validators=[InputRequired()])
+    surname = StringField("Surname", validators=[InputRequired()])
     email = StringField("Email", validators=[InputRequired(), Email("Please enter a valid email")])
+    contactNumber = TelField("Contact Number", validators=[InputRequired()])
+    streetAddress = StringField("Street Address", validators=[InputRequired()])
     password = PasswordField("Password", validators=[InputRequired()])
     confirm = PasswordField("Confirm Password", validators=[EqualTo("password", message="Passwords should match")])
     submit = SubmitField("Register")

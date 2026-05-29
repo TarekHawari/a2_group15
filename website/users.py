@@ -2,7 +2,7 @@ from .models import User
 from .forms import RegisterForm, LoginForm
 from flask import Blueprint, flash, render_template, request, url_for, redirect
 from flask_bcrypt import generate_password_hash, check_password_hash
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, logout_user
 from . import db
 
 userbp = Blueprint("user", __name__)
@@ -14,17 +14,23 @@ def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
-        user_name = form.username.data.lower()
+        first_name = form.firstName.data.lower()
+        last_name = form.surname.data.lower()
+        contact_number = form.contactNumber.data.lower()
+        street_address = form.streetAddress.data.lower()
         email = form.email.data.lower()
         user = User (
-            name = user_name,
+            firstName = first_name,
+            surname = last_name,
             email = email,
+            contactNumber = contact_number,
+            streetAddress = street_address,
             password = generate_password_hash(form.password.data)
         )
-        if db.session.scalar(db.select(User).where(User.name==user_name)):
-            error = 'User already exists'
-        elif db.session.scalar(db.select(User).where(User.email==email)):
-            error = 'Email already used'
+        # if db.session.scalar(db.select(User).where(User.name==user_name)):
+        #     error = 'User already exists'
+        if db.session.scalar(db.select(User).where(User.email==email)):
+            error = 'Email already exists'
 
         if error is None:
             db.session.add(user)
@@ -41,12 +47,12 @@ def login():
     error = None
     
     if form.validate_on_submit():
-        user_name = form.username.data.lower()
+        email = form.email.data.lower() # xxxxxx
         password = form.password.data.lower()
-        user = db.session.scalar(db.select(User).where(User.name==user_name))
+        user = db.session.scalar(db.select(User).where(User.email==email))
 
         if user is None:
-            error = 'Incorrect user name'
+            error = 'Incorrect user'
         elif not check_password_hash(user.password, password):
             error = 'Incorrect password'
 
@@ -55,7 +61,6 @@ def login():
             nextp = request.args.get('next')
             if nextp is None or not nextp.startswith('/'):
                 return redirect(url_for('main.index'))
-            # return redirect(url_for("event.show", id=user.id))
             return redirect(nextp)
         else:
             flash(error)

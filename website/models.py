@@ -6,8 +6,11 @@ from flask_login import UserMixin
 class User(db.Model, UserMixin):
     __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), index=True, unique=True, nullable=False)
-    email = db.Column(db.String(64), index=True, nullable=False)
+    firstName = db.Column(db.String(64), index=True, nullable=False)
+    surname = db.Column(db.String(64), index=True, nullable=False)
+    email = db.Column(db.String(64), index=True, unique=True, nullable=False)
+    contactNumber = db.Column(db.String(64), index=True, nullable=False)
+    streetAddress = db.Column(db.String(64), index=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
 
     def __repr__(self):
