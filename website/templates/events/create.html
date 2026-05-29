@@ -1,21 +1,20 @@
-{% extends 'base.html' %}
-
-{% from 'bootstrap5/form.html' import render_form %}
-
+{% extends 'base.html' %} {% from 'bootstrap5/form.html' import render_form %}
 {% block content %}
 
 <div class="container">
+  <!-- create event form -->
+  <h1 class="text-center">Create Event</h1>
 
-    <!-- create event form -->
-    <h1 class="text-center">Create Event</h1>
+  <div class="card card-custom col-xxl-10 col-xl-12 my-2 mx-auto">
+    <div class="card-body">
+    <form method="POST">
 
-    <div class="card card-custom col-xxl-10 col-xl-12 my-2 mx-auto">
-        <div class="card-body">
-
-            {{ render_form(form) }}
-
-        </div>
+      {{ render_form(form) }}
+      
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 
 {% endblock %}

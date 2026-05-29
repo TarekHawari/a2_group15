@@ -25,7 +25,7 @@ class Event(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     artist = db.Column(db.String(64))
     genre = db.Column(db.String(10))
-    acknowledgement = db.Column(db.String(8))
+    acknowledgement = db.Column(db.String(64))
     short_description = db.Column(db.String(512))
     long_description = db.Column(db.String(4096))
     image = db.Column(db.String(400))
@@ -38,6 +38,7 @@ class Event(db.Model):
     general_admission_price = db.Column(db.Float)
     general_admission_available = db.Column(db.Integer)
     status = db.Column(db.String(16))
+    enhanced_statement = db.Column(db.Text, nullable=True)
 
     # relationships
     comments = db.relationship("Comment", backref="event")

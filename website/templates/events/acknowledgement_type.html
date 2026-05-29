@@ -1,0 +1,79 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container">
+  <div class="card card-custom col-xxl-10 col-xl-12 my-2 mx-auto">
+    <div class="card-body">
+      <h1 class="text-center">Acknowledgement of Country</h1>
+      <hr />
+      <p>
+        Acknowledgement of Country is an important and widely recognised
+        practice at Australian events. Please select the acknowledgement option
+        you would like to include for your event.
+      </p>
+
+      <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="card mb-2 p-3">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="acknowledgement"
+              value="No Acknowledgement of Country"
+              id="ack_none"
+            />
+            <label class="form-check-label fw-bold" for="ack_none"
+              >No Acknowledgement of Country</label
+            >
+          </div>
+          <p class="text-muted small ms-4 mb-0">
+            No Acknowledgement of Country will be included for this event.
+          </p>
+        </div>
+
+        <div class="card mb-2 p-3">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="acknowledgement"
+              value="Acknowledgement of Country: Generic"
+              id="ack_generic"
+            />
+            <label class="form-check-label fw-bold" for="ack_generic"
+              >Acknowledgement of Country: Generic</label
+            >
+          </div>
+          <p class="text-muted small ms-4 mb-0">
+            A general acknow recoginsing Traditional Custodians will be included.
+          </p>
+        </div>
+
+        <div class="card mb-2 p-3">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="acknowledgement"
+              value="Acknowledgement of Country: Enhanced"
+              id="ack_enhanced"
+            />
+            <label class="form-check-label fw-bold" for="ack_enhanced"
+              >Acknowledgement of Country: Enhanced</label
+            >
+          </div>
+          <p class="text-muted small ms-4 mb-0">
+            An enhanced acknowledgement recognising sovereignty, ongoing
+            connection to Country, and the cultural contributions or Traditional
+            Custodians will be included.
+          </p>
+        </div>
+
+        <button type="submit" class="btn btn-custom mt-3">Continue</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -92,9 +92,11 @@
        {% if event.acknowledgement == 'Acknowledgement of Country: Generic' %}
        <p>We acknowledge the Traditional Custodians of the land which this event takes place, and pay our respects to their Elders past, present and emerging.</p>
        {% elif event.acknowledgement == 'Acknowledgement of Country: Enhanced' %}
-       <p>We acknowledge the {{custodians[event.venue_state]}}, the Tradisitonal Custodians of {{event.venue_city}}, {{event.venue_state}}, and pay our respects to their Elders past, present and emerging.
-         We celebrate their ongoing connection to land, sea and community.
-       </p>
+       {% if event.enhanced_statement %}
+       <p>{{ event.enhanced_statement }}</p>
+       {% else %}
+       <p>We acknowledge the {{custodians[event.venue_state]}}, the Traditional Custodians of {{event.venue_city}}, {{event.venue_state}}, and pay our respects to their Elders past, present and emerging.</p>
+       {% endif %}
        {% endif %}
      </div>
    </div>

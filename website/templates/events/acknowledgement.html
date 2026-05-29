@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <div class="card card-custom col-12 mt-2">
+    <div class="card-body">
+      <h1 class="text-center">Enhanced Acknowledgement of Country</h1>
+      <hr />
+      <p>
+        An Acknowledgement of Country is an important practice in Australia that
+        recognises the Traditional Custodians of the land and their enduring
+        connection to Country.
+      </p>
+
+      <h5>Guidance for writing a meaningful acknowledgement:</h5>
+      <ul>
+        <li>Research the Traditional Custodians of the specific area</li>
+        <li>Be specific about the Country and peoples you are acknowledging</li>
+        <li>Avoid tokenistic or generic statements</li>
+        <li>Speak with sincerity and respect</li>
+      </ul>
+
+      <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+          <label class="form-label">Your Acknowledgement Statement</label>
+          {{ form.enhanced_statement(class="form-control", rows="6", placeholder="We acknowledge the Traditional Custodians of " ~event.venue_city ~  "," ~ event.venue_state ~ ", and pay our respects to their Elders past, present and emerging.")}}
+        </div>
+        <button type="submit" class="btn btn-custom mt-3">
+          Save Statement
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

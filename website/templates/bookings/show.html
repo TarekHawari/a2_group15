@@ -9,7 +9,14 @@
 
   <div class="card card-custom col-12 my-2">
     <div class="card-body">
-      <h5 class="card-title">{{order.event.artist}}</h5>
+      <h5 class="card-title">
+        <img src=" {{order.event.image}}" alt="{{order.event.artist}}" class="card-img-top mb-3">
+        
+        <a href="{{ url_for('event.show', id=order.event.id)}}"> {{order.event.artist}} </a>
+      </h5>
+      <p class="card-text">📍 {{ order.event.venue_name }}, {{ order.event.venue_city }}, {{ order.event.venue_state }}</p>
+      <p class="card-text">🗓️ {{ order.event.date.strftime("%A %d %B %Y") }}</p>
+      <p class="card-text">🕜 {{ order.event.start_time.strftime("%I:%M %p") }}</p>
     </div>
     <div class="card-footer">
       <p>User ID: {{order.user_id}}</p>
