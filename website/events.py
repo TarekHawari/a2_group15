@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from .models import Event, Comment
-from .forms import EventForm, CommentForm
+from .forms import EventForm, CommentForm, AcknowledgementForm
 from .icons import icons
 
 # from .models import Event, Comment
@@ -90,7 +90,7 @@ def create():
         event = Event(
             artist=form.artist.data,
             genre=form.genre.data,
-            acknowledgement=form.acknowledgement.data,
+            acknowledgement=None,
             short_description=form.short_description.data,
             long_description=form.long_description.data,
             image=db_file_path,
@@ -107,7 +107,7 @@ def create():
         )
         db.session.add(event)
         db.session.commit()
-        return redirect(url_for("event.show", id=event.id))
+        return redirect(url_for("event.acknowledgement_type", id=event.id))
     return render_template("events/create.html", form=form)
 
 
@@ -188,3 +188,31 @@ def comment(id):
         print("Your comment has been added", "success")
     # using redirect sends a GET request to destination.show
     return redirect(url_for("event.show", id=id))
+
+@eventbp.route("/<id>/acknowledgement-type", methods=["GET", "POST"])
+@login_required
+def acknowledgement_type(id):
+    event = db.session.scalar(db.select(Event).where(Event.id == id))
+    form = AcknowledgementForm()
+    if request.method == "POST":
+        ack = request.form.get('acknowledgemen' \
+        't')
+        event.acknowledgement = ack
+        db.session.commit()
+        if ack == 'Acknowledgement of Country: Enhanced':
+            return redirect(url_for('event.acknowledgement', id=id))
+        else:
+            return redirect(url_for('event.show', id=id))
+    return render_template("events/acknowledgement_type.html", event=event, form=form)
+    
+
+@eventbp.route("/<id>/acknowledgement", methods=["GET", "POST"])
+@login_required
+def acknowledgement(id):
+    event = db.session.scalar(db.select(Event).where(Event.id == id)) 
+    form = AcknowledgementForm()
+    if form.validate_on_submit():
+        event.enhanced_statement = form.enhanced_statement.data
+        db.session.commit()
+        return redirect(url_for('event.show', id=id))
+    return render_template("events/acknowledgement.html", event=event, form=form)

@@ -14,7 +14,7 @@ from wtforms.fields import (
     IntegerField,
     TelField
 )
-from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, ValidationError
+from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, ValidationError, Optional
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 from datetime import date
 
@@ -69,11 +69,11 @@ class EventForm(FlaskForm):
         ("Rock", "Rock"),
     ]
 
-    acknowledgement_choices = [
-        ("No Acknowledgement of Country", "No Acknowledgement of Country"),
-        ("Acknowledgement of Country: Generic", "Acknowledgement of Country: Generic"),
-        ("Acknowledgement of Country: Enhanced", "Acknowledgement of Country: Enhanced"),
-    ]
+    # acknowledgement_choices = [
+    #     ("No Acknowledgement of Country", "No Acknowledgement of Country"),
+    #     ("Acknowledgement of Country: Generic", "Acknowledgement of Country: Generic"),
+    #     ("Acknowledgement of Country: Enhanced", "Acknowledgement of Country: Enhanced"),
+    # ]
 
     state_choices = [
         ("QLD", "QLD"),
@@ -101,11 +101,12 @@ class EventForm(FlaskForm):
             (Length(max=10)),
         ],
     )
-    acknowledgement = RadioField(
-        "Acknowledgement of Country",
-        choices=acknowledgement_choices,
-        validators=[InputRequired(), (Length(max=36))],
-    )
+    # acknowledgement = RadioField(
+    #     "Acknowledgement of Country",
+    #     choices=acknowledgement_choices,
+    #     validators=[InputRequired(), (Length(max=36))],
+    # )
+
     short_description = TextAreaField(
         "Short Description",
         validators=[
@@ -191,3 +192,7 @@ class EventForm(FlaskForm):
 class BookingForm(FlaskForm):
     quantity = IntegerField("Quantity", validators=[InputRequired(), NumberRange(min=1)])
     submit = SubmitField("Book Now")
+
+class AcknowledgementForm(FlaskForm):
+    enhanced_statement = TextAreaField("Your Statement", validators=[InputRequired()])
+    submit=SubmitField("Save Statement")
