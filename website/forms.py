@@ -23,12 +23,16 @@ def date_in_future(form, field):
     if field.data < date.today():
         raise ValidationError("The date must not be in the past")
 
+# def verify_phone_number(form, field):
+#     if not field.data.isdigit():
+#         raise ValidationError("Phone number must consist of integers")
+#     if len(field.data) != 10:
+#         raise ValidationError("Phone number must be 10 integers long")
 
 class LoginForm(FlaskForm):
     email = StringField("email", validators=[InputRequired("Enter user email"), Email("Please enter a valid email")])
     password = PasswordField("Password", validators=[InputRequired("Enter user password")])
     submit = SubmitField("Login")
-
 
 class RegisterForm(FlaskForm):
     firstName = StringField("First Name", validators=[InputRequired()])
