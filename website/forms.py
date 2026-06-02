@@ -1,41 +1,53 @@
-from flask_wtf import FlaskForm
-from wtforms.fields import (
-    TextAreaField,
-    SubmitField,
-    StringField,
-    PasswordField,
-    FileField,
-    SelectField,
-    RadioField,
-    DateTimeField,
-    FloatField,
-    TimeField,
-    DateField,
-    IntegerField,
-    TelField
-)
-from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, ValidationError, Optional
-from flask_wtf.file import FileRequired, FileField, FileAllowed
 from datetime import date
+
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileAllowed, FileField, FileRequired
+from wtforms.fields import (
+    DateField,
+    DateTimeField,
+    FileField,
+    FloatField,
+    IntegerField,
+    PasswordField,
+    RadioField,
+    SelectField,
+    StringField,
+    SubmitField,
+    TelField,
+    TextAreaField,
+    TimeField,
+)
+from wtforms.validators import (
+    Email,
+    EqualTo,
+    InputRequired,
+    Length,
+    NumberRange,
+    Optional,
+    ValidationError,
+)
 
 
 def date_in_future(form, field):
     if field.data < date.today():
         raise ValidationError("The date must not be in the past")
 
+
 def verify_phone_number(form, field):
     data = field.data.replace(" ", "")
-    if data.startswith('+'):
+    if data.startswith("+"):
         data = data[1:]
     if not data.isdigit():
         raise ValidationError("Contact number must consist of integers")
     if 10 > len(data) or len(data) > 15:
         raise ValidationError("Contact number must be 10 to 15 integers long")
 
+
 class LoginForm(FlaskForm):
-    email = StringField("email", validators=[InputRequired("Enter user email"), Email("Please enter a valid email")])
+    email = StringField("Email", validators=[InputRequired("Enter user email"), Email("Please enter a valid email")])
     password = PasswordField("Password", validators=[InputRequired("Enter user password")])
     submit = SubmitField("Login")
+
 
 class RegisterForm(FlaskForm):
     firstName = StringField("First Name", validators=[InputRequired()])
@@ -130,10 +142,10 @@ class EventForm(FlaskForm):
     )
     image = FileField(
         "Event Image",
-        # validators=[
-        #     FileRequired(message="Image cannot be empty"),
-        #     FileAllowed(allowed_files, message="Only supports jpg, jpeg, png, webp"),
-        # ],
+        validators=[
+            # FileRequired(message="Image cannot be empty"),
+            FileAllowed(allowed_files, message="Only supports jpg, jpeg, png, webp"),
+        ],
     )
     venue_name = StringField(
         "Venue Name",
@@ -200,6 +212,7 @@ class BookingForm(FlaskForm):
     quantity = IntegerField("Quantity", validators=[InputRequired(), NumberRange(min=1)])
     submit = SubmitField("Book Now")
 
+
 class AcknowledgementForm(FlaskForm):
     enhanced_statement = TextAreaField("Your Statement", validators=[InputRequired()])
-    submit=SubmitField("Save Statement")
+    submit = SubmitField("Save Statement")
