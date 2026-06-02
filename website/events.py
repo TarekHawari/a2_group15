@@ -1,21 +1,19 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-from .models import Event, Comment
-from .forms import EventForm, CommentForm, AcknowledgementForm
-from .icons import icons
+import os
+import random
+import string
+from datetime import date
+
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_required
+from werkzeug.datastructures.file_storage import FileStorage
+from werkzeug.utils import secure_filename
 
 # from .models import Event, Comment
 # from .forms import EventForm, CommentForm
 from . import db
-import os
-from werkzeug.utils import secure_filename
-from werkzeug.datastructures.file_storage import FileStorage
-from .forms import EventForm, BookingForm
-from flask_login import current_user, login_required
-from datetime import date
-
-
-import random
-import string
+from .forms import AcknowledgementForm, BookingForm, CommentForm, EventForm
+from .icons import icons
+from .models import Comment, Event
 
 eventbp = Blueprint("event", __name__, url_prefix="/events")
 
@@ -119,7 +117,7 @@ def edit(id):
         if event.user_id == current_user.id:
             form = EventForm(obj=event)
             form.genre.default = event.genre
-            form.acknowledgement.default = event.acknowledgement
+            # form.acknowledgement.default = event.acknowledgement
             if form.validate_on_submit():
                 # if a new image has been uploaded, process it, else leave event.image untouched
                 if isinstance(form.image.data, FileStorage):
@@ -128,7 +126,7 @@ def edit(id):
 
                 event.artist = form.artist.data
                 event.genre = form.genre.data
-                event.acknowledgement = form.acknowledgement.data
+                # event.acknowledgement = form.acknowledgement.data
                 event.short_description = form.short_description.data
                 event.long_description = form.long_description.data
                 # event.image = db_file_path
@@ -189,30 +187,30 @@ def comment(id):
     # using redirect sends a GET request to destination.show
     return redirect(url_for("event.show", id=id))
 
+
 @eventbp.route("/<id>/acknowledgement-type", methods=["GET", "POST"])
 @login_required
 def acknowledgement_type(id):
     event = db.session.scalar(db.select(Event).where(Event.id == id))
     form = AcknowledgementForm()
     if request.method == "POST":
-        ack = request.form.get('acknowledgemen' \
-        't')
+        ack = request.form.get("acknowledgemen" "t")
         event.acknowledgement = ack
         db.session.commit()
-        if ack == 'Acknowledgement of Country: Enhanced':
-            return redirect(url_for('event.acknowledgement', id=id))
+        if ack == "Acknowledgement of Country: Enhanced":
+            return redirect(url_for("event.acknowledgement", id=id))
         else:
-            return redirect(url_for('event.show', id=id))
+            return redirect(url_for("event.show", id=id))
     return render_template("events/acknowledgement_type.html", event=event, form=form)
-    
+
 
 @eventbp.route("/<id>/acknowledgement", methods=["GET", "POST"])
 @login_required
 def acknowledgement(id):
-    event = db.session.scalar(db.select(Event).where(Event.id == id)) 
+    event = db.session.scalar(db.select(Event).where(Event.id == id))
     form = AcknowledgementForm()
     if form.validate_on_submit():
         event.enhanced_statement = form.enhanced_statement.data
         db.session.commit()
-        return redirect(url_for('event.show', id=id))
+        return redirect(url_for("event.show", id=id))
     return render_template("events/acknowledgement.html", event=event, form=form)
