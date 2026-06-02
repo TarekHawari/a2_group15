@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-2"></div>
+        <div class="col-lg-6 col-8">
+            <div class="text-center">
+                {% if code == 404 %}
+                <img style="width:100%" src="/static/img/404.png">
+                <h1>Error</h1>
+                <h4>Page not found!</h4>
+                {% else %}
+                <img style="width:100%" src="/static/img/500.png">
+                <h1>Error</h1>
+                <h4>Something went wrong!</h4>
+                {% endif %}
+            </div>
+            <p>{{ error }}</p>
+        </div>
+        <div class="col-lg-3 col-2"></div>
+    </div>
+</div>
+
+{% endblock %}

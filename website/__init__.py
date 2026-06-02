@@ -1,5 +1,5 @@
 # import flask - from 'package' import 'Class'
-from flask import Flask
+from flask import Flask, render_template
 from flask_bootstrap import Bootstrap5
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -45,5 +45,13 @@ def create_app():
     from . import users
 
     app.register_blueprint(users.userbp)
+
+    @app.errorhandler(404)
+    def not_found(e):
+        return render_template("error.html", error=e, code=404)
+
+    @app.errorhandler(500)
+    def internal_error(e):
+        return render_template("error.html", error=e, code=500)
 
     return app
