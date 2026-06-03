@@ -12,17 +12,25 @@
 
       <h5>Guidance for writing a meaningful acknowledgement:</h5>
       <ul>
-        <li>Research the Traditional Custodians of the specific area</li>
-        <li>Be specific about the Country and peoples you are acknowledging</li>
-        <li>Avoid tokenistic or generic statements</li>
-        <li>Speak with sincerity and respect</li>
+        <li>Research the Traditional Custodians of {{event.venue_state}}.</li>
+        <li>Be specific and respectful to the people you are acknowledging</li>
+        <li>Avoid sarcastic, tokenistic, or generic statements</li>
+        <li>Speak with sincerity and genuine respect</li>
+        <p>
+          <a
+            href="https://indigenousportal.education.qld.gov.au/resource/Documents/how-craft-heartfelt-acknowledgement-country.pdf"
+            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+            >You can learn more through this website</a
+          >
+        </p>
       </ul>
 
       <form action="" method="POST">
         {{ form.hidden_tag() }}
         <div class="mb-3">
           <label class="form-label">Your Acknowledgement Statement</label>
-          {{ form.enhanced_statement(class="form-control", rows="6", placeholder="We acknowledge the Traditional Custodians of " ~event.venue_city ~  "," ~ event.venue_state ~ ", and pay our respects to their Elders past, present and emerging.")}}
+          {{ form.enhanced_statement(class="form-control", rows="6",
+          placeholder="Write your acknowledgement statement here...")}}
         </div>
         <button type="submit" class="btn btn-custom mt-3">
           Save Statement
