@@ -28,6 +28,13 @@ from wtforms.validators import (
 )
 
 
+def date_within_two_years(form, field):
+    today = date.today()
+    two_years_forward = today.replace(year=today.year + 2)
+    if not field.data < two_years_forward:
+        raise ValidationError("The date must be within two years")
+
+
 def date_in_future(form, field):
     if field.data < date.today():
         raise ValidationError("The date must not be in the past")
@@ -189,6 +196,7 @@ class EventForm(FlaskForm):
         validators=[
             InputRequired(),
             date_in_future,
+            date_within_two_years,
         ],
     )
     general_admission_price = FloatField(

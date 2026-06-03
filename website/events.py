@@ -80,7 +80,7 @@ def create():
     form = EventForm()
     if form.validate_on_submit():
         # if a new image has been uploaded, process it, else use default
-        if isinstance(form.image.data, FileStorage):
+        if isinstance(form.image.data, FileStorage) and form.image.data.filename is not None and form.image.data.filename != "":
             db_file_path = check_upload_file(form)
         else:
             db_file_path = "/static/img/default.jpg"
@@ -120,7 +120,7 @@ def edit(id):
             # form.acknowledgement.default = event.acknowledgement
             if form.validate_on_submit():
                 # if a new image has been uploaded, process it, else leave event.image untouched
-                if isinstance(form.image.data, FileStorage):
+                if isinstance(form.image.data, FileStorage) and form.image.data.filename is not None and form.image.data.filename != "":
                     db_file_path = check_upload_file(form)
                     event.image = db_file_path
 
